@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IVendor } from "./IVendor";
 import { vendorAPI } from "./VendorAPI";
 import toast from "react-hot-toast";
+import { formatPhoneNumber } from "../utility/formatUtilities";
 
 interface IVendorCardProps {
   vendor: IVendor;
@@ -24,9 +25,6 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
           />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item as={Link} to={`/vendors/detail/${vendor.id}`}>
-            View
-          </Dropdown.Item>
           <Dropdown.Item as={Link} to={`/vendors/edit/${vendor.id}`}>
             Edit
           </Dropdown.Item>
@@ -56,11 +54,16 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
       </Dropdown>
 
       <div className="d-flex flex-column gap-2">
-        <span className="fs-4 fw-medium">{vendor.name}</span>
-        <span className="text-secondary">Code: {vendor.code}</span>
-        <span className="text-secondary">
-          {vendor.city}, {vendor.state}
+        <span className="fs-4 fw-medium">
+          {vendor.name}
+          <span className="badge text-bg-dark ms-2">{vendor.code}</span>
         </span>
+        <span className="text-secondary">{vendor.address}</span>
+        <span className="text-secondary">
+          {vendor.city}, {vendor.state} {vendor.zip}
+        </span>
+        {vendor.phone && <span>{formatPhoneNumber(vendor.phone)}</span>}
+        {vendor.email && <span>{vendor.email}</span>}
       </div>
     </div>
   );

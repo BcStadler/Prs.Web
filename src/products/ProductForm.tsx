@@ -65,14 +65,32 @@ function ProductForm() {
 
   return (
     <form className="d-flex flex-wrap w-75 gap-2" onSubmit={handleSubmit(save)}>
+      <div className="mb-3 w-25">
+        <label htmlFor="partNumber" className="form-label">
+          Product Number
+        </label>
+        <input
+          id="partNumber"
+          type="text"
+          {...register("partNumber", {
+            required: "Product number is required",
+            maxLength: {
+              value: 20,
+              message: "Product number cannot exceed 20 characters",
+            },
+          })}
+          className={`form-control ${errors?.partNumber && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.partNumber?.message}</div>
+      </div>
       <div className="mb-3 w-75">
         <label htmlFor="name" className="form-label">
-          Name
+          Product Name
         </label>
         <input
           id="name"
           type="text"
-          {...register("name", { required: "Name is required" })}
+          {...register("name", { required: "Product name is required" })}
           className={`form-control ${errors?.name && "is-invalid"}`}
         />
         <div className="invalid-feedback">{errors?.name?.message}</div>
@@ -93,6 +111,18 @@ function ProductForm() {
         />
         <div className="invalid-feedback">{errors?.price?.message}</div>
       </div>
+      <div className="mb-3 w-25">
+        <label htmlFor="unit" className="form-label">
+          Unit
+        </label>
+        <input
+          id="unit"
+          type="text"
+          {...register("unit", { required: "Unit is required" })}
+          className={`form-control ${errors?.unit && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.unit?.message}</div>
+      </div>
       <div className="mb-3 w-50">
         <label htmlFor="vendorId" className="form-label">
           Vendor
@@ -101,7 +131,7 @@ function ProductForm() {
           id="vendorId"
           {...register("vendorId", {
             valueAsNumber: true,
-            required: "Vendor is required",
+            validate: (value) => value > 0 || "Vendor is required",
           })}
           className={`form-select ${errors?.vendorId && "is-invalid"}`}
         >

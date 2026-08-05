@@ -11,6 +11,13 @@ interface IUserCardProps {
 }
 
 function UserCard({ user, onRemove }: IUserCardProps) {
+  const initials = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
+  const role = user.isAdmin
+    ? "Admin"
+    : user.isReviewer
+      ? "Reviewer"
+      : "no role assigned";
+
   return (
     <div className="card p-4 position-relative" style={{ width: "23rem" }}>
       <Dropdown className="position-absolute top-0 end-0 mt-2 me-2" align="end">
@@ -53,26 +60,19 @@ function UserCard({ user, onRemove }: IUserCardProps) {
         </Dropdown.Menu>
       </Dropdown>
       <div className="d-flex align-items-start gap-3">
+        <div
+          className="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-semibold"
+          style={{ width: "2.5rem", height: "2.5rem", backgroundColor: "#0d6efd" }}
+          aria-hidden="true"
+        >
+          {initials}
+        </div>
         <div className="d-flex flex-column">
           <span className="fs-4 fw-medium">
             {user.firstName} {user.lastName}
           </span>
-          <span className="text-secondary">@{user.username}</span>
+          <span className="text-secondary">{role}</span>
           <span>{formatPhoneNumber(user.phone)}</span>
-          <span>{user.email}</span>
-          <div className="mt-3">
-            {user.isReviewer && (
-              <span className="badge text-bg-dark mt-1">Reviewer</span>
-            )}{" "}
-            {user.isAdmin && (
-              <span
-                className="badge mt-1"
-                style={{ backgroundColor: "#0d6efd", color: "#fff" }}
-              >
-                Admin
-              </span>
-            )}
-          </div>
         </div>
       </div>
     </div>

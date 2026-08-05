@@ -54,11 +54,11 @@ function VendorPage() {
   return (
     <section className="content container-fluid mx-5 my-2 py-4">
       <div className="d-flex align-items-center justify-content-between pb-4 mb-4 border-bottom border-2">
-        <h2 className="mb-0">Vendor</h2>
+        <h2 className="mb-0">Vendors</h2>
         <Link
-          to="/vendor/create"
+          to="/vendors/create"
           className="btn btn-primary d-inline-flex align-items-center justify-content-center"
-          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+          style={{ backgroundColor: "#0d6efd ", borderColor: "#0d6efd " }}
         >
           <svg
             className="bi pe-none me-2"
@@ -70,7 +70,7 @@ function VendorPage() {
           >
             <path d="M8 1a.5.5 0 0 1 .5.5v6h6a.5.5 0 0 1 0 1h-6v6a.5.5 0 0 1-1 0v-6h-6a.5.5 0 0 1 0-1h6v-6A.5.5 0 0 1 8 1Z" />
           </svg>
-          Add Vendor
+          Create a vendor
         </Link>
       </div>
       <section className="list d-flex flex-row flex-wrap gap-5 p-4">

@@ -4,6 +4,59 @@ import toast from "react-hot-toast";
 import { IVendor } from "./IVendor";
 import { vendorAPI } from "./VendorAPI";
 
+const usStates = [
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
+];
+
 const emptyVendor: IVendor = {
   id: undefined,
   code: "",
@@ -30,12 +83,17 @@ function VendorForm() {
         return emptyVendor;
       }
 
-      return await vendorAPI.find(Number(id));
+      const vendor = await vendorAPI.find(Number(id));
+      return {
+        ...vendor,
+        state: vendor.state?.trim().toUpperCase() || "",
+      };
     },
   });
 
   const save: SubmitHandler<IVendor> = async (vendor) => {
     try {
+      vendor.state = vendor.state?.trim().toUpperCase() || "";
       if (!vendor.id) {
         await vendorAPI.post(vendor);
       } else {
@@ -55,32 +113,38 @@ function VendorForm() {
   };
 
   return (
-    <form className="w-75" onSubmit={handleSubmit(save)}>
-      <div className="mb-3">
+    <form className="d-flex flex-wrap w-75 gap-2" onSubmit={handleSubmit(save)}>
+      <div className="mb-3 w-25">
         <label htmlFor="code" className="form-label">
-          Code
+          Vendor Code
         </label>
         <input
           id="code"
           type="text"
-          {...register("code", { required: "Code is required" })}
+          {...register("code", {
+            required: "Vendor code is required",
+            maxLength: {
+              value: 7,
+              message: "Vendor code cannot exceed 7 characters",
+            },
+          })}
           className={`form-control ${errors?.code && "is-invalid"}`}
         />
         <div className="invalid-feedback">{errors?.code?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-75">
         <label htmlFor="name" className="form-label">
-          Name
+          Vendor Name
         </label>
         <input
           id="name"
           type="text"
-          {...register("name", { required: "Name is required" })}
+          {...register("name", { required: "Vendor name is required" })}
           className={`form-control ${errors?.name && "is-invalid"}`}
         />
         <div className="invalid-feedback">{errors?.name?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-100">
         <label htmlFor="address" className="form-label">
           Address
         </label>
@@ -92,7 +156,7 @@ function VendorForm() {
         />
         <div className="invalid-feedback">{errors?.address?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-50">
         <label htmlFor="city" className="form-label">
           City
         </label>
@@ -104,19 +168,27 @@ function VendorForm() {
         />
         <div className="invalid-feedback">{errors?.city?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-25">
         <label htmlFor="state" className="form-label">
           State
         </label>
-        <input
+        <select
           id="state"
-          type="text"
-          {...register("state", { required: "State is required" })}
-          className={`form-control ${errors?.state && "is-invalid"}`}
-        />
+          {...register("state", {
+            validate: (value) => !!value || "State is required",
+          })}
+          className={`form-select ${errors?.state && "is-invalid"}`}
+        >
+          <option value="">Select state...</option>
+          {usStates.map((state) => (
+            <option key={state} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
         <div className="invalid-feedback">{errors?.state?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-25">
         <label htmlFor="zip" className="form-label">
           Zip
         </label>
@@ -128,7 +200,7 @@ function VendorForm() {
         />
         <div className="invalid-feedback">{errors?.zip?.message}</div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-50">
         <label htmlFor="phone" className="form-label">
           Phone
         </label>
@@ -139,13 +211,13 @@ function VendorForm() {
           className="form-control"
         />
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-50">
         <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
           id="email"
-          type="email"
+          type="text"
           {...register("email")}
           className="form-control"
         />
@@ -178,7 +250,7 @@ function VendorForm() {
           >
             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4.5L11.5 0H2zm0 1h9v3.5A1.5 1.5 0 0 0 12.5 6H15v8a1 1 0 0 1-1 1h-1v-3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm10 0.5L14.5 4H12a0.5 0.5 0 0 1-0.5-0.5v-2zM4 15v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3H4z" />
           </svg>
-          Save Vendor
+          Save vendor
         </button>
       </div>
     </form>

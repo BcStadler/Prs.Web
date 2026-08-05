@@ -12,7 +12,6 @@ function formatDeliveryMode(deliveryMode: string) {
       return "Pickup";
     case "DELIVERY":
       return "Delivery";
-    case "SIGNATURE DELIVERY":
     case "SIGNATURE_DELIVERY":
       return "Signature Delivery";
     default:

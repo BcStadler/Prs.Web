@@ -72,7 +72,11 @@ function RequestDetailPage() {
 
     setLoading(true);
     try {
-      await requestsAPI.review(request.id);
+      if (runningTotal <= 50) {
+        await requestsAPI.approve(request.id);
+      } else {
+        await requestsAPI.review(request.id);
+      }
       toast.success("Successfully saved.");
       navigate("/requests");
     } catch (error) {
@@ -190,7 +194,7 @@ function RequestDetailPage() {
           </div>
         </Modal.Body>
       </Modal>
-      <div className="d-flex justify-content-between pb-4 mb-4 brequest-bottom brequest-2">
+      <div className="d-flex justify-content-between pb-4 mb-4 border-bottom border-2">
         <h2>Request</h2>
         <div className="d-flex justify-content-end gap-2">
           {normalizedStatus === "NEW" && (

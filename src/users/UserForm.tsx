@@ -121,16 +121,10 @@ function UserForm() {
           </label>
           <input
             id="email"
-            type="email"
-            {...register("email", {
-              pattern: {
-                value: /^$|^\S+@\S+\.\S+$/,
-                message: "Enter a valid email",
-              },
-            })}
-            className={`form-control ${errors?.email && "is-invalid"}`}
+            type="text"
+            {...register("email")}
+            className="form-control"
           />
-          <div className="invalid-feedback">{errors?.email?.message}</div>
         </div>
         <div className="flex-fill">
           <label htmlFor="phone" className="form-label">
