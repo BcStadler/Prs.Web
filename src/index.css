@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap");
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -11,8 +13,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -51,11 +53,6 @@
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -108,4 +105,155 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+}
+
+main {
+  flex: 1;
+}
+
+/* a {
+  --bs-link-color-rgb: 255, 122, 0;
+}
+
+.nav-pills {
+  --bs-nav-pills-link-active-color: #fff;
+  --bs-nav-pills-link-active-bg: #FF7A00;
+} */
+
+:root {
+  /* This changes all standard links globally */
+  --bs-link-color-rgb: 255, 122, 0;
+  --bs-link-hover-color-rgb: 204, 98, 0; /* Slightly darker orange for hover */
+}
+
+.nav-pills {
+  /* Active state (selected pill) */
+  --bs-nav-pills-link-active-color: #fff;
+  --bs-nav-pills-link-active-bg: #ff7a00;
+
+  /* Inactive state (unselected pills) */
+  --bs-nav-link-color: #ff7a00;
+  --bs-nav-link-hover-color: #cc6200;
+}
+
+.nav-pills .nav-link {
+  color: #ff7a00;
+}
+
+.nav-pills .nav-link:hover {
+  color: #cc6200;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #ff7a00 !important;
+  color: #fff !important;
+}
+
+.nav {
+  --bs-nav-link-padding-y: 0.6rem;
+}
+
+.btn-primary {
+  /* Normal state */
+  --bs-btn-bg: #ff7a00;
+  --bs-btn-border-color: #ff7a00;
+  --bs-btn-color: #fff; /* Text color */
+
+  /* Hover state */
+  --bs-btn-hover-bg: #cc6200; /* Slightly darker orange */
+  --bs-btn-hover-border-color: #cc6200;
+  --bs-btn-hover-color: #fff;
+
+  /* Active / Pressed state */
+  --bs-btn-active-bg: #b35300;
+  --bs-btn-active-border-color: #b35300;
+  --bs-btn-active-color: #fff;
+
+  /* Focus / Keyboard navigation state */
+  --bs-btn-focus-shadow-rgb: 255, 122, 0;
+}
+
+/* If using Bootstrap's contextual background class on a badge */
+.badge.bg-primary {
+  background-color: #ff7a00 !important;
+  color: #fff;
+}
+
+/* Or if you want to override the badge component variables directly */
+.badge {
+  --bs-badge-bg: #ff7a00;
+  --bs-badge-color: #fff;
+}
+
+.text-bg-primary {
+  background-color: #ff7a00 !important;
+  color: #fff !important;
+}
+
+/* This updates all standard Bootstrap progress bars to your orange */
+.progress-bar {
+  --bs-progress-bar-bg: #ff7a00;
+}
+
+/* Safety override: If you are using <div class="progress-bar bg-primary"> */
+.progress-bar.bg-primary {
+  background-color: #ff7a00 !important;
+}
+
+/* Force the exact orange onto your existing progress bar fill */
+.progress-bar.bg-primary {
+  background-color: #ff7a00 !important;
+}
+
+/*  Optional: If your progress bar uses the default color without a bg-* utility */
+.progress-bar {
+  background-color: #ff7a00 !important;
+}
+
+.dropdown-toggle.dropdown-toggle-no-caret::after {
+  display: none !important;
+}
+
+.staff-card-menu-toggle.dropdown-toggle::after,
+.staff-card-menu-toggle::after {
+  content: none !important;
+  display: none !important;
+}
+
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card > .progress {
+  height: 0.1875rem;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.list .card:hover {
+  background-color: var(--bs-tertiary-bg);
+  transform: scale(1.025);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px;
+}
+
+.signin {
+  min-height: 100vh; /* Ensures the background covers the full page height */
+  background: rgb(255, 243, 230);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 243, 230, 1) 0%,
+    rgba(255, 250, 245, 0.5) 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }

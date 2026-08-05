@@ -1,14 +1,12 @@
 export function getTextBackgroundByStatus(status: string): string {
   switch (status) {
-    case "PLACED":
-      return "text-bg-secondary";
-    case "PREPARING":
+    case "NEW":
+      return "text-bg-primary";
+    case "REVIEW":
       return "text-bg-warning";
-    case "READY":
-      return "text-bg-info";
     case "APPROVED":
       return "text-bg-success";
-    case "CANCELLED":
+    case "REJECTED":
       return "text-bg-danger";
     default:
       return "";
