@@ -6,14 +6,17 @@ import { useUserContext } from "../App";
 import { userAPI } from "../users/UserAPI";
 import { IUser } from "../users/IUser";
 import { IRequest } from "./IRequest";
-import { requestAPI } from "./RequestAPI";
+import { requestsAPI } from "./RequestAPI";
 
 const emptyRequest: IRequest = {
   id: undefined,
+  description: "",
+  justification: "",
+  deliveryMode: "PICKUP",
   tableNumber: undefined,
   notes: undefined,
   status: "NEW",
-  cancellationReason: undefined,
+  rejectionReason: undefined,
   total: 0,
   requestedAt: new Date().toISOString(),
   userId: undefined,
@@ -44,7 +47,7 @@ function RequestForm() {
         return emptyRequest;
       }
 
-      return await requestAPI.find(Number(id));
+      return await requestsAPI.find(Number(id));
     },
   });
 
@@ -56,11 +59,11 @@ function RequestForm() {
       delete request.requestItems;
 
       if (!request.id) {
-        const newRequest = await requestAPI.post(request);
+        const newRequest = await requestsAPI.post(request);
         toast.success("Successfully saved.");
         navigate(`/requests/detail/${newRequest.id}`);
       } else {
-        await requestAPI.put(request);
+        await requestsAPI.put(request);
         toast.success("Successfully saved.");
         navigate(`/requests/detail/${request.id}`);
       }
@@ -114,12 +117,12 @@ function RequestForm() {
       </div>
       <div className="w-75">
         <label htmlFor="notes" className="form-label">
-          Notes
+          Description
         </label>
         <textarea
-          id="notes"
+          id="description"
           rows={4}
-          {...register("notes")}
+          {...register("description")}
           className="form-control"
         ></textarea>
       </div>
@@ -134,10 +137,10 @@ function RequestForm() {
           className={`form-select ${errors?.status && "is-invalid"}`}
           defaultValue="NEW"
         >
-          <option value="New">New</option>
-          <option value="Review">Review</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
+          <option value="NEW">New</option>
+          <option value="REVIEW">Review</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
         </select>
         <div className="invalid-feedback">{errors?.status?.message}</div>
       </div>

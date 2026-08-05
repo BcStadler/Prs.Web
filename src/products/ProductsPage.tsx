@@ -56,7 +56,7 @@ function ProductsPage() {
         <Link
           to="/products/create"
           className="btn btn-primary d-inline-flex align-items-center justify-content-center"
-          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
         >
           <svg
             className="bi pe-none me-2"
@@ -68,7 +68,7 @@ function ProductsPage() {
           >
             <path d="M8 1a.5.5 0 0 1 .5.5v6h6a.5.5 0 0 1 0 1h-6v6a.5.5 0 0 1-1 0v-6h-6a.5.5 0 0 1 0-1h6v-6A.5.5 0 0 1 8 1Z" />
           </svg>
-          Add Product
+          Create a Product
         </Link>
       </div>
       <section className="list d-flex flex-row flex-wrap bg-light gap-4 p-4 rounded-4">

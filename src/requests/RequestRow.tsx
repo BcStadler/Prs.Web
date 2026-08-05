@@ -1,7 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
 import { IRequest } from "./IRequest";
-import { requestAPI } from "./RequestAPI";
+import { requestsAPI } from "./RequestAPI";
 import { getTextBackgroundByStatus } from "../utility/formatUtilities";
 import toast from "react-hot-toast";
 
@@ -14,27 +14,26 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
   return (
     <tr>
       <th scope="row">{request.id}</th>
-      <td>{request.tableNumber}</td>
-      <td className="text-body-secondary small text-wrap">
-        {request.notes || "—"}
+      <td>
+        <div>{request.description}</div>
+        <div className="text small">{request.justification}</div>
       </td>
       <td>
         <span className={`badge ${getTextBackgroundByStatus(request.status)}`}>
-          {request.status}
+          {request.status
+            ? `${request.status.trim().charAt(0).toUpperCase()}${request.status
+                .trim()
+                .slice(1)
+                .toLowerCase()}`
+            : ""}
         </span>
       </td>
       <td>${request.total.toFixed(2)}</td>
       <td>
-        {request.staff?.firstName || request.staffName || "-"}{" "}
-        {request.staff?.lastName || ""}
-      </td>
-      <td>
-        {request.requestedAt
-          ? new Date(request.requestedAt).toLocaleTimeString([], {
-              hour: "numeric",
-              minute: "2-digit",
-            })
-          : "—"}
+        <div>
+          {request.user?.firstName} {request.user?.lastName}
+        </div>
+        <div className="text-body-secondary small">{request.deliveryMode}</div>
       </td>
       <td>
         <Dropdown className="d-inline">
@@ -71,7 +70,7 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
                 if (confirm("Are you sure you want to delete this request?")) {
                   if (request.id) {
                     try {
-                      await requestAPI.delete(request.id);
+                      await requestsAPI.delete(request.id);
                       onRemove(request);
                       toast.success("Successfully deleted.");
                     } catch (error) {

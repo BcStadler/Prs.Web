@@ -9,9 +9,12 @@ import toast from "react-hot-toast";
 
 const emptyProduct: IProduct = {
   id: undefined,
+  partNumber: "",
   name: "",
-  price: undefined,
-  vendorId: undefined,
+  price: 0,
+  unit: "",
+  photoPath: "",
+  vendorId: 0,
   vendor: {} as IVendor,
 };
 

@@ -1,5 +1,14 @@
 export interface IVendor {
-  id: number | undefined;
+  id?: number;
+  code: string;
   name: string;
-  sortOrder: number | undefined;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone?: string;
+  email?: string;
+
+
+  sortOrder?: number;
 }

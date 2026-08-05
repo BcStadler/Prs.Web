@@ -61,13 +61,13 @@ function UserCard({ user, onRemove }: IUserCardProps) {
           <span>{formatPhoneNumber(user.phone)}</span>
           <span>{user.email}</span>
           <div className="mt-3">
-            {user.isManager && (
-              <span className="badge text-bg-dark mt-1">Manager</span>
+            {user.isReviewer && (
+              <span className="badge text-bg-dark mt-1">Reviewer</span>
             )}{" "}
             {user.isAdmin && (
               <span
                 className="badge mt-1"
-                style={{ backgroundColor: "#ff7a00", color: "#fff" }}
+                style={{ backgroundColor: "#0d6efd", color: "#fff" }}
               >
                 Admin
               </span>

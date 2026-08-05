@@ -1,27 +1,27 @@
 import { IUser } from "../users/IUser";
 import { IRequestLine } from "../requestLines/IRequestLine";
 
-export interface IRequests {
+export interface IRequest {
   id?: number;
-  tableNumber?: number;
-  notes?: string;
+  description: string;
+  justification: string;
+  rejectionReason?: string;
+  deliveryMode: string;
   status: string;
   total: number;
-  requestedAt?: string;
-  orderedAt?: string;
   userId?: number;
-  UserId?: number;
   user?: IUser;
-  User?: IUser;
+  requestLines?: IRequestLine[];
+
+  tableNumber?: number;
+  notes?: string;
+  orderedAt?: string;
+  requestedAt?: string;
+  userName?: string;
   staff?: IUser;
   staffName?: string;
-  userName?: string;
-  cancellationReason?: string;
-  RejectionReason?: string;
-  requestLine?: IRequestLine[];
-  requestLines?: IRequestLine[];
-  requestlines?: IRequestLine[];
+  orderItems?: IRequestLine[];
   requestItems?: IRequestLine[];
+  requestlines?: IRequestLine[];
+  RejectionReason?: string;
 }
-
-export interface IRequest extends IRequests {}

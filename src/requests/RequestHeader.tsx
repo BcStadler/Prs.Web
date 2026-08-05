@@ -20,7 +20,12 @@ function RequestHeader({ request }: IRequestHeaderProps) {
           <span
             className={`badge ${getTextBackgroundByStatus(request.status)}`}
           >
-            {request.status}
+            {request.status
+              ? `${request.status.trim().charAt(0).toUpperCase()}${request.status
+                  .trim()
+                  .slice(1)
+                  .toLowerCase()}`
+              : ""}
           </span>
         </dd>
         <dt>Total</dt>
@@ -45,10 +50,10 @@ function RequestHeader({ request }: IRequestHeaderProps) {
               })
             : "—"}
         </dd>
-        {request.status === "Rejected" && (
+        {request.status?.trim().toUpperCase() === "REJECTED" && (
           <>
             <dt>Rejection Reason</dt>
-            <dd>{request.RejectionReason}</dd>
+            <dd>{request.rejectionReason || request.RejectionReason || "—"}</dd>
           </>
         )}
       </dl>

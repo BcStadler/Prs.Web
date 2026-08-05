@@ -57,7 +57,7 @@ function UserPage() {
         <Link
           to="/users/create"
           className="btn btn-primary d-inline-flex align-items-center justify-content-center"
-          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
         >
           <svg
             className="bi pe-none me-2"

@@ -20,7 +20,6 @@ function RequestLineForm() {
   const emptyRequestLine: IRequestLine = {
     id: undefined,
     quantity: 0,
-    notes: undefined,
     requestId: requestLineId,
     productId: 0,
     product: undefined,
@@ -138,13 +137,6 @@ function RequestLineForm() {
         <label htmlFor="notes" className="form-label">
           Notes
         </label>
-        <input
-          id="notes"
-          type="text"
-          {...register("notes")}
-          className="form-control"
-          placeholder="Enter any notes for this item (optional)"
-        />
       </div>
       <div className="mb-3">
         <label className="form-label">Amount</label>

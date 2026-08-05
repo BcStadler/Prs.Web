@@ -1,7 +1,7 @@
 import { useEffect, useState, ChangeEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { IRequest } from "./IRequest";
-import { requestAPI } from "./RequestAPI";
+import { requestsAPI } from "./RequestAPI";
 import RequestRow from "./RequestRow";
 import toast from "react-hot-toast";
 
@@ -12,8 +12,8 @@ function RequestsPage() {
   const selectedStatus = searchParams.get("status") ?? "";
 
   const addButtonStyle = {
-    backgroundColor: "#ff7a00",
-    brequestColor: "#ff7a00",
+    backgroundColor: "#0d6efd ",
+    brequestColor: "#0d6efd ",
     color: "#fff",
   } as const;
 
@@ -39,7 +39,7 @@ function RequestsPage() {
     const loadRequests = async (status?: string) => {
       setLoading(true);
       try {
-        const data = await requestAPI.list(status);
+        const data = await requestsAPI.list(status);
         if (active) {
           setRequests(data);
         }
@@ -89,10 +89,10 @@ function RequestsPage() {
           onChange={handleStatusChange}
         >
           <option value="">All</option>
-          <option value="New">New</option>
-          <option value="Review">Review</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
+          <option value="NEW">New</option>
+          <option value="REVIEW">Review</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
         </select>
         {loading && <p>Loading...</p>}
         <table className="table table-hover w-100 rounded-4">
@@ -102,14 +102,17 @@ function RequestsPage() {
               <th scope="col">Description</th>
               <th scope="col">Status</th>
               <th scope="col">Total</th>
-              <th scope="col">User</th>
-              <th scope="col">Requested At</th>
+              <th scope="col">Requested By</th>
               <th />
             </tr>
           </thead>
           <tbody>
             {requests.map((request) => (
-              <RequestRow key={request.id} request={request} onRemove={removeRequest} />
+              <RequestRow
+                key={request.id}
+                request={request}
+                onRemove={removeRequest}
+              />
             ))}
           </tbody>
         </table>

@@ -1,11 +1,14 @@
 export interface IUser {
   id?: number;
-  firstName: string;
-  lastName: string;
   username: string;
   password: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   email: string;
-  isManager: boolean;
+  isReviewer: boolean;
   isAdmin: boolean;
+
+
+  isManager?: boolean;
 }

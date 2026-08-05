@@ -1,4 +1,4 @@
-import { IRequest, IRequests } from "./IRequest";
+import { IRequest } from "./IRequest";
 import { BASE_URL, checkStatus, parseJSON } from "../utility/fetchUtilities";
 
 const url = `${BASE_URL}/requests`;
@@ -8,19 +8,19 @@ export const requestsAPI = {
     const query = status ? `?status=${status}` : "";
     return fetch(`${url}${query}`).then(checkStatus).then(parseJSON);
   },
-  post(request: IRequest): Promise<IRequest> {
+  post(requests: IRequest): Promise<IRequest> {
     return fetch(url, {
       method: "POST",
-      body: JSON.stringify(request),
+      body: JSON.stringify(requests),
       headers: { "Content-Type": "application/json" },
     })
       .then(checkStatus)
       .then(parseJSON);
   },
-  put(request: IRequest): Promise<IRequest> {
-    return fetch(`${url}/${request.id}`, {
+  put(requests: IRequest): Promise<IRequest> {
+    return fetch(`${url}/${requests.id}`, {
       method: "PUT",
-      body: JSON.stringify(request),
+      body: JSON.stringify(requests),
       headers: { "Content-Type": "application/json" },
     })
       .then(checkStatus)
@@ -45,27 +45,4 @@ export const requestsAPI = {
       headers: { "Content-Type": "application/json" },
     }).then(checkStatus);
   },
-  startPreparing(id: number) {
-    return fetch(`${url}/${id}/StartPreparing`, { method: "PUT" }).then(
-      checkStatus,
-    );
-  },
-  markReady(id: number) {
-    return fetch(`${url}/${id}/MarkReady`, { method: "PUT" }).then(checkStatus);
-  },
-  markServed(id: number) {
-    return fetch(`${url}/${id}/MarkServed`, { method: "PUT" }).then(
-      checkStatus,
-    );
-  },
-  cancel(id: number, cancellationReason: string) {
-    return fetch(`${url}/${id}/Cancel`, {
-      method: "PUT",
-      body: JSON.stringify(cancellationReason),
-      headers: { "Content-Type": "application/json" },
-    }).then(checkStatus);
-  },
 };
-
-export const requestAPI = requestsAPI;
-export type { IRequests };

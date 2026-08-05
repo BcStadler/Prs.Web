@@ -6,7 +6,14 @@ import { vendorAPI } from "./VendorAPI";
 
 const emptyVendor: IVendor = {
   id: undefined,
+  code: "",
   name: "",
+  address: "",
+  city: "",
+  state: "",
+  zip: "",
+  phone: "",
+  email: "",
   sortOrder: undefined,
 };
 
@@ -93,7 +100,7 @@ function VendorForm() {
         <button
           type="submit"
           className="btn btn-primary"
-          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
         >
           <svg
             className="bi me-2"

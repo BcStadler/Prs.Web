@@ -6,7 +6,7 @@ function AppNav() {
   const location = useLocation();
   const { user } = useUserContext();
   const isAdmin = !!user?.isAdmin;
-  const canManage = isAdmin || !!user?.isManager;
+  const canManage = isAdmin || !!user?.isReviewer;
 
   return (
     <Nav

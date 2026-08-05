@@ -12,7 +12,7 @@ const emptyUser: IUser = {
   password: "",
   phone: "",
   email: "",
-  isManager: false,
+  isReviewer: false,
   isAdmin: false,
 };
 
@@ -148,13 +148,13 @@ function UserForm() {
         <label className="form-label d-block">Roles</label>
         <div className="form-check form-check-inline">
           <input
-            {...register("isManager")}
-            id="isManager"
+            {...register("isReviewer")}
+            id="isReviewer"
             type="checkbox"
             className="form-check-input"
           />
-          <label htmlFor="isManager" className="form-check-label">
-            Manager
+          <label htmlFor="isReviewer" className="form-check-label">
+            Reviewer
           </label>
         </div>
         <div className="form-check form-check-inline">
@@ -185,7 +185,7 @@ function UserForm() {
         <button
           type="submit"
           className="btn btn-primary"
-          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
         >
           <svg
             className="bi me-2"

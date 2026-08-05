@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { IRequests } from "./IRequest";
-import { requestAPI } from "./RequestAPI";
+import { IRequest } from "./IRequest";
+import { requestsAPI } from "./RequestAPI";
 import RequestHeader from "./RequestHeader";
 import { IRequestLine } from "../requestLines/IRequestLine";
 import { requestLineAPI } from "../requestLines/RequestLineAPI";
 import { formatCurrency } from "../utility/formatUtilities";
 import { useUserContext } from "../App";
 
-interface ICancelForm {
-  cancellationReason: string | undefined;
+interface IRejectForm {
+  rejectionReason: string | undefined;
 }
 
 function getErrorMessage(error: unknown) {
@@ -26,21 +26,23 @@ function RequestDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useUserContext();
   const [loading, setLoading] = useState(false);
-  const [request, setRequest] = useState<IRequests | undefined>(undefined);
-  const [isCancelOpen, setIsCancelOpen] = useState(false);
+  const [request, setRequest] = useState<IRequest | undefined>(undefined);
+  const [isRejectOpen, setIsRejectOpen] = useState(false);
   const [requestLineToDelete, setRequestLineToDelete] = useState<
     IRequestLine | undefined
   >(undefined);
-  const normalizedStatus = request?.status?.trim().toUpperCase();
+  const normalizedStatus = !request?.status
+    ? ""
+    : request.status.trim().toUpperCase();
   const isOwnRequest = request?.userId === user?.id;
-  const canCancel = isOwnRequest || !!user?.isManager;
+  const canReject = isOwnRequest || !!user?.isReviewer;
   const requestLines = request?.requestLines ?? [];
   const runningTotal = requestLines.reduce(
     (total, line) => total + (line.product?.price ?? 0) * line.quantity,
     0,
   );
-  const openCancel = () => setIsCancelOpen(true);
-  const closeCancel = () => setIsCancelOpen(false);
+  const openReject = () => setIsRejectOpen(true);
+  const closeReject = () => setIsRejectOpen(false);
   const handleShowDeleteLineModal = (requestLine: IRequestLine) =>
     setRequestLineToDelete(requestLine);
   const handleCloseDeleteLineModal = () => setRequestLineToDelete(undefined);
@@ -49,14 +51,14 @@ function RequestDetailPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICancelForm>({
-    defaultValues: async () => ({ cancellationReason: undefined }),
+  } = useForm<IRejectForm>({
+    defaultValues: async () => ({ rejectionReason: undefined }),
   });
 
   const loadRequest = async () => {
     setLoading(true);
     try {
-      const fetchedRequest = await requestAPI.find(Number(id));
+      const fetchedRequest = await requestsAPI.find(Number(id));
       setRequest(fetchedRequest);
     } catch (error) {
       toast.error(getErrorMessage(error));
@@ -65,12 +67,12 @@ function RequestDetailPage() {
     }
   };
 
-  async function startPreparing() {
+  async function sendToReview() {
     if (!request?.id) return;
 
     setLoading(true);
     try {
-      await requestAPI.startPreparing(request.id);
+      await requestsAPI.review(request.id);
       toast.success("Successfully saved.");
       await loadRequest();
     } catch (error) {
@@ -80,12 +82,12 @@ function RequestDetailPage() {
     }
   }
 
-  async function markReady() {
+  async function markApproved() {
     if (!request?.id) return;
 
     setLoading(true);
     try {
-      await requestAPI.markReady(request.id);
+      await requestsAPI.approved(request.id);
       toast.success("Successfully saved.");
       await loadRequest();
     } catch (error) {
@@ -95,27 +97,12 @@ function RequestDetailPage() {
     }
   }
 
-  async function markServed() {
-    if (!request?.id) return;
-
-    setLoading(true);
-    try {
-      await requestAPI.markServed(request.id);
-      toast.success("Successfully saved.");
-      await loadRequest();
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const saveCancel: SubmitHandler<ICancelForm> = async (form) => {
-    if (!request?.id || !form.cancellationReason) return;
+  const saveReject: SubmitHandler<IRejectForm> = async (form) => {
+    if (!request?.id || !form.rejectionReason) return;
 
     try {
-      await requestAPI.cancel(request.id, form.cancellationReason);
-      setIsCancelOpen(false);
+      await requestsAPI.reject(request.id, form.rejectionReason);
+      setIsRejectOpen(false);
       toast.success("Successfully saved.");
       await loadRequest();
     } catch (error) {
@@ -142,33 +129,33 @@ function RequestDetailPage() {
 
   return (
     <section className="content container-fluid mx-5 my-2 py-4">
-      <Modal show={isCancelOpen} onHide={closeCancel}>
+      <Modal show={isRejectOpen} onHide={closeReject}>
         <Modal.Header closeButton>
-          <Modal.Title>Cancel Request</Modal.Title>
+          <Modal.Title>Reject Request</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit(saveCancel)}>
+          <form onSubmit={handleSubmit(saveReject)}>
             <div className="mb-3">
-              <label className="form-label" htmlFor="cancellationReason">
-                Cancellation Reason
+              <label className="form-label" htmlFor="rejectionReason">
+                Rejection Reason
               </label>
               <textarea
-                {...register("cancellationReason", {
-                  required: "Cancellation reason is required",
+                {...register("rejectionReason", {
+                  required: "Rejection reason is required",
                 })}
-                className={`form-control ${errors?.cancellationReason && "is-invalid"}`}
-                id="cancellationReason"
+                className={`form-control ${errors?.rejectionReason && "is-invalid"}`}
+                id="rejectionReason"
                 rows={6}
               ></textarea>
               <div className="invalid-feedback">
-                {errors?.cancellationReason?.message}
+                {errors?.rejectionReason?.message}
               </div>
             </div>
             <div className="d-flex justify-content-end gap-2">
               <button
                 type="button"
                 className="btn btn-outline-primary"
-                onClick={closeCancel}
+                onClick={closeReject}
               >
                 Cancel
               </button>
@@ -206,38 +193,33 @@ function RequestDetailPage() {
       <div className="d-flex justify-content-between pb-4 mb-4 brequest-bottom brequest-2">
         <h2>Request</h2>
         <div className="d-flex justify-content-end gap-2">
-          {normalizedStatus === "PLACED" && (
+          {normalizedStatus === "NEW" && (
             <>
               <button
                 className="btn btn-outline-danger"
-                onClick={openCancel}
-                disabled={!canCancel}
+                onClick={openReject}
+                disabled={!canReject}
               >
-                Cancel Request
+                Reject Request
               </button>
-              <button className="btn btn-primary" onClick={startPreparing}>
-                Start Preparing
+              <button className="btn btn-primary" onClick={sendToReview}>
+                Send To Review
               </button>
             </>
           )}
-          {normalizedStatus === "PREPARING" && (
+          {normalizedStatus === "REVIEW" && (
             <>
               <button
                 className="btn btn-outline-danger"
-                onClick={openCancel}
-                disabled={!canCancel}
+                onClick={openReject}
+                disabled={!canReject}
               >
-                Cancel Request
+                Reject Request
               </button>
-              <button className="btn btn-primary" onClick={markReady}>
-                Mark Ready
+              <button className="btn btn-primary" onClick={markApproved}>
+                Mark Approved
               </button>
             </>
-          )}
-          {normalizedStatus === "READY" && (
-            <button className="btn btn-primary" onClick={markServed}>
-              Mark Served
-            </button>
           )}
           {request?.id && (
             <Link
@@ -294,7 +276,8 @@ function RequestDetailPage() {
                     </td>
                     <td>
                       {formatCurrency(
-                        (requestLine.product?.price ?? 0) * requestLine.quantity,
+                        (requestLine.product?.price ?? 0) *
+                          requestLine.quantity,
                       )}
                     </td>
                     <td>
