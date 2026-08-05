@@ -116,41 +116,41 @@ main {
 }
 
 /* a {
-  --bs-link-color-rgb: 255, 122, 0;
+  --bs-link-color-rgb: 13, 110, 253;
 }
 
 .nav-pills {
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #FF7A00;
+  --bs-nav-pills-link-active-bg: #0D6EFD;
 } */
 
 :root {
   /* This changes all standard links globally */
-  --bs-link-color-rgb: 255, 122, 0;
-  --bs-link-hover-color-rgb: 204, 98, 0; /* Slightly darker orange for hover */
+  --bs-link-color-rgb: 13, 110, 253;
+  --bs-link-hover-color-rgb: 11, 94, 215; /* Slightly darker blue for hover */
 }
 
 .nav-pills {
   /* Active state (selected pill) */
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #ff7a00;
+  --bs-nav-pills-link-active-bg: #0d6efd;
 
   /* Inactive state (unselected pills) */
-  --bs-nav-link-color: #ff7a00;
-  --bs-nav-link-hover-color: #cc6200;
+  --bs-nav-link-color: #0d6efd;
+  --bs-nav-link-hover-color: #0b5ed7;
 }
 
 .nav-pills .nav-link {
-  color: #ff7a00;
+  color: #0d6efd;
 }
 
 .nav-pills .nav-link:hover {
-  color: #cc6200;
+  color: #0b5ed7;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
   color: #fff !important;
 }
 
@@ -160,59 +160,59 @@ main {
 
 .btn-primary {
   /* Normal state */
-  --bs-btn-bg: #ff7a00;
-  --bs-btn-border-color: #ff7a00;
+  --bs-btn-bg: #0d6efd;
+  --bs-btn-border-color: #0d6efd;
   --bs-btn-color: #fff; /* Text color */
 
   /* Hover state */
-  --bs-btn-hover-bg: #cc6200; /* Slightly darker orange */
-  --bs-btn-hover-border-color: #cc6200;
+  --bs-btn-hover-bg: #0b5ed7; /* Slightly darker blue */
+  --bs-btn-hover-border-color: #0b5ed7;
   --bs-btn-hover-color: #fff;
 
   /* Active / Pressed state */
-  --bs-btn-active-bg: #b35300;
-  --bs-btn-active-border-color: #b35300;
+  --bs-btn-active-bg: #0a58ca;
+  --bs-btn-active-border-color: #0a58ca;
   --bs-btn-active-color: #fff;
 
   /* Focus / Keyboard navigation state */
-  --bs-btn-focus-shadow-rgb: 255, 122, 0;
+  --bs-btn-focus-shadow-rgb: 13, 110, 253;
 }
 
 /* If using Bootstrap's contextual background class on a badge */
 .badge.bg-primary {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
   color: #fff;
 }
 
 /* Or if you want to override the badge component variables directly */
 .badge {
-  --bs-badge-bg: #ff7a00;
+  --bs-badge-bg: #0d6efd;
   --bs-badge-color: #fff;
 }
 
 .text-bg-primary {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
   color: #fff !important;
 }
 
 /* This updates all standard Bootstrap progress bars to your orange */
 .progress-bar {
-  --bs-progress-bar-bg: #ff7a00;
+  --bs-progress-bar-bg: #0d6efd;
 }
 
 /* Safety override: If you are using <div class="progress-bar bg-primary"> */
 .progress-bar.bg-primary {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
 }
 
 /* Force the exact orange onto your existing progress bar fill */
 .progress-bar.bg-primary {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
 }
 
 /*  Optional: If your progress bar uses the default color without a bg-* utility */
 .progress-bar {
-  background-color: #ff7a00 !important;
+  background-color: #0d6efd !important;
 }
 
 .dropdown-toggle.dropdown-toggle-no-caret::after {
