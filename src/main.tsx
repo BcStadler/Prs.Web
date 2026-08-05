@@ -44,11 +44,11 @@ const router = createBrowserRouter([
           { path: "requests/edit/:id", element: <RequestEditPage /> },
           { path: "requests/detail/:id", element: <RequestDetailPage /> },
           {
-            path: "requests/detail/:id/requestLine/create",
+            path: "requests/detail/:id/requestline/create",
             element: <RequestItemCreatePage />,
           },
           {
-            path: "requests/detail/:id/requestLine/edit/:itemId",
+            path: "requests/detail/:id/requestline/edit/:lineId",
             element: <RequestItemEditPage />,
           },
           { path: "vendors", element: <VendorsPage /> },

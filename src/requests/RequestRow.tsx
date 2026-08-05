@@ -2,12 +2,30 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
 import { IRequest } from "./IRequest";
 import { requestsAPI } from "./RequestAPI";
-import { getTextBackgroundByStatus } from "../utility/formatUtilities";
+import {
+  formatCurrency,
+  getTextBackgroundByStatus,
+} from "../utility/formatUtilities";
 import toast from "react-hot-toast";
 
 interface RequestRowProps {
   request: IRequest;
   onRemove: (request: IRequest) => void;
+}
+
+function formatDeliveryMode(deliveryMode: string) {
+  if (!deliveryMode) return "";
+  switch (deliveryMode.trim().toUpperCase()) {
+    case "PICKUP":
+      return "Pickup";
+    case "DELIVERY":
+      return "Delivery";
+    case "SIGNATURE DELIVERY":
+    case "SIGNATURE_DELIVERY":
+      return "Signature Delivery";
+    default:
+      return deliveryMode;
+  }
 }
 
 function RequestRow({ request, onRemove }: RequestRowProps) {
@@ -16,7 +34,7 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
       <th scope="row">{request.id}</th>
       <td>
         <div>{request.description}</div>
-        <div className="text small">{request.justification}</div>
+        <div className="text-body-secondary small">{request.justification}</div>
       </td>
       <td>
         <span className={`badge ${getTextBackgroundByStatus(request.status)}`}>
@@ -28,12 +46,14 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
             : ""}
         </span>
       </td>
-      <td>${request.total.toFixed(2)}</td>
+      <td>{formatCurrency(request.total)}</td>
       <td>
         <div>
           {request.user?.firstName} {request.user?.lastName}
         </div>
-        <div className="text-body-secondary small">{request.deliveryMode}</div>
+        <div className="text-body-secondary small">
+          {formatDeliveryMode(request.deliveryMode)}
+        </div>
       </td>
       <td>
         <Dropdown className="d-inline">
@@ -57,7 +77,7 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to={`/requests/detail/${request.id}`}>
-              View
+              Review
             </Dropdown.Item>
             <Dropdown.Item as={Link} to={`/requests/edit/${request.id}`}>
               Edit

@@ -6,15 +6,16 @@ import { IProduct } from "../products/IProduct";
 import { productAPI } from "../products/ProductAPI";
 import { IRequestLine } from "./IRequestLine";
 import { requestLineAPI } from "./RequestLineAPI";
+import { formatCurrency } from "../utility/formatUtilities";
 
 function RequestLineForm() {
-  const { itemId, id } = useParams<{ itemId: string; id: string }>();
+  const { lineId, id } = useParams<{ lineId: string; id: string }>();
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<IProduct | undefined>(
     undefined,
   );
-  const requestLineId = Number(itemId);
+  const requestLineId = Number(lineId);
   const requestId = Number(id);
 
   const emptyRequestLine: IRequestLine = {
@@ -38,7 +39,8 @@ function RequestLineForm() {
   } = useForm<IRequestLine>({
     defaultValues: async () => {
       await loadProducts();
-      if (!itemId) {
+
+      if (!lineId) {
         return emptyRequestLine;
       }
 
@@ -48,10 +50,6 @@ function RequestLineForm() {
 
   const productId = watch("productId");
   const quantity = watch("quantity");
-  const currencyFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
 
   useEffect(() => {
     const currentProduct = products.find(
@@ -62,25 +60,30 @@ function RequestLineForm() {
 
   const save: SubmitHandler<IRequestLine> = async (requestline) => {
     try {
-      delete requestline.product;
-      delete requestline.request;
+      const payload: IRequestLine = {
+        id: requestline.id,
+        requestId: requestline.requestId,
+        productId: requestline.productId,
+        quantity: requestline.quantity,
+      };
+
+      let savedRequestLine: IRequestLine;
 
       if (!requestline.id) {
-        requestline = await requestLineAPI.post(requestline);
+        savedRequestLine = await requestLineAPI.post(payload);
       } else {
-        await requestLineAPI.put(requestline);
+        savedRequestLine = await requestLineAPI.put(payload);
       }
+
+      toast.success("Successfully saved.");
+      navigate(`/requests/detail/${savedRequestLine.requestId}`);
     } catch (error) {
       const message =
         error instanceof Error
           ? error.message
           : "An unexpected error occurred.";
       toast.error(message, { duration: 6000 });
-      return;
     }
-
-    toast.success("Successfully saved.");
-    navigate(`/requests/detail/${requestline.requestId}`);
   };
 
   return (
@@ -100,9 +103,9 @@ function RequestLineForm() {
             valueAsNumber: true,
             required: "Product is required",
           })}
-          className={`form-select ${errors?.productId && "is-invalid"}`}
+          className={`form-select ${errors?.productId ? "is-invalid" : ""}`}
         >
-          <option value="">Select Product...</option>
+          <option value="">Select...</option>
           {products.map((product) => (
             <option key={product.id} value={product.id}>
               {product.name}
@@ -114,7 +117,7 @@ function RequestLineForm() {
       <div className="mb-3">
         <label className="form-label">Price</label>
         <div className="form-label">
-          {currencyFormatter.format(selectedProduct?.price ?? 0)}
+          {formatCurrency(selectedProduct?.price ?? 0)}
         </div>
       </div>
       <div className="mb-3">
@@ -124,21 +127,20 @@ function RequestLineForm() {
         <input
           id="quantity"
           type="number"
+          min={1}
           {...register("quantity", {
             required: "Quantity is required",
             min: { value: 1, message: "Quantity must be at least 1" },
             valueAsNumber: true,
           })}
-          className={`form-control ${errors?.quantity && "is-invalid"}`}
+          className={`form-control ${errors?.quantity ? "is-invalid" : ""}`}
         />
         <div className="invalid-feedback">{errors?.quantity?.message}</div>
       </div>
       <div className="mb-3">
         <label className="form-label">Amount</label>
         <div className="form-label">
-          {currencyFormatter.format(
-            (selectedProduct?.price ?? 0) * (quantity ?? 0),
-          )}
+          {formatCurrency((selectedProduct?.price ?? 0) * (quantity ?? 0))}
         </div>
       </div>
       <div className="d-flex justify-content-end mt-5">
@@ -159,7 +161,7 @@ function RequestLineForm() {
           >
             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4.5L11.5 0H2zm0 1h9v3.5A1.5 1.5 0 0 0 12.5 6H15v8a1 1 0 0 1-1 1h-1v-3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm10 0.5L14.5 4H12a0.5 0.5 0 0 1-0.5-0.5v-2zM4 15v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3H4z" />
           </svg>
-          Save Request Line
+          Save line
         </button>
       </div>
     </form>

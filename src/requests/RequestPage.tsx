@@ -12,8 +12,8 @@ function RequestsPage() {
   const selectedStatus = searchParams.get("status") ?? "";
 
   const addButtonStyle = {
-    backgroundColor: "#0d6efd ",
-    brequestColor: "#0d6efd ",
+    backgroundColor: "#0d6efd",
+    borderColor: "#0d6efd",
     color: "#fff",
   } as const;
 
@@ -78,10 +78,13 @@ function RequestsPage() {
           >
             +
           </span>
-          <span>Create a Request</span>
+          <span>Create a request</span>
         </Link>
       </div>
       <section className="list bg-body-tertiary p-4 rounded-4">
+        <label htmlFor="status" className="form-label">
+          Status
+        </label>
         <select
           id="status"
           className="form-select w-auto mb-3"

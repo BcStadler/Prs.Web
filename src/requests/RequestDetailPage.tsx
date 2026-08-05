@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -24,6 +24,7 @@ function getErrorMessage(error: unknown) {
 
 function RequestDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { user } = useUserContext();
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState<IRequest | undefined>(undefined);
@@ -35,7 +36,6 @@ function RequestDetailPage() {
     ? ""
     : request.status.trim().toUpperCase();
   const isOwnRequest = request?.userId === user?.id;
-  const canReject = isOwnRequest || !!user?.isReviewer;
   const requestLines = request?.requestLines ?? [];
   const runningTotal = requestLines.reduce(
     (total, line) => total + (line.product?.price ?? 0) * line.quantity,
@@ -74,7 +74,7 @@ function RequestDetailPage() {
     try {
       await requestsAPI.review(request.id);
       toast.success("Successfully saved.");
-      await loadRequest();
+      navigate("/requests");
     } catch (error) {
       toast.error(getErrorMessage(error));
     } finally {
@@ -87,9 +87,9 @@ function RequestDetailPage() {
 
     setLoading(true);
     try {
-      await requestsAPI.approved(request.id);
+      await requestsAPI.approve(request.id);
       toast.success("Successfully saved.");
-      await loadRequest();
+      navigate("/requests");
     } catch (error) {
       toast.error(getErrorMessage(error));
     } finally {
@@ -104,7 +104,7 @@ function RequestDetailPage() {
       await requestsAPI.reject(request.id, form.rejectionReason);
       setIsRejectOpen(false);
       toast.success("Successfully saved.");
-      await loadRequest();
+      navigate("/requests");
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
@@ -160,7 +160,7 @@ function RequestDetailPage() {
                 Cancel
               </button>
               <button type="submit" className="btn btn-primary">
-                Confirm
+                Save
               </button>
             </div>
           </form>
@@ -194,30 +194,25 @@ function RequestDetailPage() {
         <h2>Request</h2>
         <div className="d-flex justify-content-end gap-2">
           {normalizedStatus === "NEW" && (
-            <>
-              <button
-                className="btn btn-outline-danger"
-                onClick={openReject}
-                disabled={!canReject}
-              >
-                Reject Request
-              </button>
-              <button className="btn btn-primary" onClick={sendToReview}>
-                Send To Review
-              </button>
-            </>
+            <button className="btn btn-primary" onClick={sendToReview}>
+              Send for Review
+            </button>
           )}
           {normalizedStatus === "REVIEW" && (
             <>
               <button
+                className="btn btn-primary"
+                onClick={markApproved}
+                disabled={isOwnRequest}
+              >
+                Approve
+              </button>
+              <button
                 className="btn btn-outline-danger"
                 onClick={openReject}
-                disabled={!canReject}
+                disabled={isOwnRequest}
               >
-                Reject Request
-              </button>
-              <button className="btn btn-primary" onClick={markApproved}>
-                Mark Approved
+                Reject
               </button>
             </>
           )}
@@ -241,11 +236,16 @@ function RequestDetailPage() {
           )}
         </div>
       </div>
+      {normalizedStatus === "REVIEW" && isOwnRequest && (
+        <div className="alert alert-warning" role="alert">
+          You cannot approve or reject your own request.
+        </div>
+      )}
       {loading && <p>Loading…</p>}
       {request && <RequestHeader request={request} />}
       {request && (
         <div className="card p-4 mt-5">
-          <h5 className="card-title">Request Lines</h5>
+          <h5 className="card-title">Items</h5>
           <div className="table-responsive">
             <table className="table align-middle mb-0">
               <thead>
@@ -324,7 +324,7 @@ function RequestDetailPage() {
                       to={`/requests/detail/${request.id}/requestline/create`}
                       className="btn btn-outline-primary"
                     >
-                      Add Request Line
+                      Add a line
                     </Link>
                   </td>
                   <td />

@@ -5,6 +5,21 @@ interface IRequestHeaderProps {
   request: IRequest;
 }
 
+function formatDeliveryMode(deliveryMode: string) {
+  if (!deliveryMode) return "";
+  switch (deliveryMode.trim().toUpperCase()) {
+    case "PICKUP":
+      return "Pickup";
+    case "DELIVERY":
+      return "Delivery";
+    case "SIGNATURE DELIVERY":
+    case "SIGNATURE_DELIVERY":
+      return "Signature Delivery";
+    default:
+      return deliveryMode;
+  }
+}
+
 function RequestHeader({ request }: IRequestHeaderProps) {
   return (
     <section className="d-flex flex-wrap gap-4 justify-content-between pe-5">
@@ -15,6 +30,8 @@ function RequestHeader({ request }: IRequestHeaderProps) {
         <dd>{request.justification}</dd>
       </dl>
       <dl>
+        <dt>Delivery Method</dt>
+        <dd>{formatDeliveryMode(request.deliveryMode)}</dd>
         <dt>Status</dt>
         <dd>
           <span
@@ -28,25 +45,16 @@ function RequestHeader({ request }: IRequestHeaderProps) {
               : ""}
           </span>
         </dd>
-        <dt>Total</dt>
-        <dd>
-          {new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-          }).format(request.total)}
-        </dd>
       </dl>
       <dl>
         <dt>Requested By</dt>
         <dd>
           {request.user?.firstName} {request.user?.lastName}
         </dd>
-        <dt>Delivery Mode</dt>
-        <dd>{request.deliveryMode}</dd>
-        {request.status?.trim().toUpperCase() === "REJECTED" && (
+        {request.rejectionReason && (
           <>
             <dt>Rejection Reason</dt>
-            <dd>{request.rejectionReason || "—"}</dd>
+            <dd>{request.rejectionReason}</dd>
           </>
         )}
       </dl>
