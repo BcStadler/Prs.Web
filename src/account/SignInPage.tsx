@@ -11,13 +11,13 @@ interface IAccount {
   password: string;
 }
 
-function persistUsers(users: IUser) {
-  localStorage.setItem("users", JSON.stringify(users));
+function persistUsers(user: IUser) {
+  localStorage.setItem("user", JSON.stringify(user));
 }
 
 function SignInPage() {
   const navigate = useNavigate();
-  const { users, setUsers } = useUserontext();
+  const { user, setUser } = useUserContext();
   const {
     register,
     handleSubmit,
@@ -28,13 +28,13 @@ function SignInPage() {
 
   const signin: SubmitHandler<IAccount> = async (account) => {
     try {
-      const { password: _, ...safeUsers } = await userAPI.findByAccount(
+      const { password: _, ...safeUser } = await userAPI.findByAccount(
         account.username,
         account.password,
       );
       void _;
-      persistUsers(safeUsers as IUser);
-      setUsers(safeUsers as IUser);
+      persistUsers(safeUser as IUser);
+      setUser(safeUser as IUser);
       navigate("/orders");
     } catch {
       toast.error("Unsuccessful sign in. Please try again.");
@@ -42,10 +42,10 @@ function SignInPage() {
   };
 
   useEffect(() => {
-    if (users) {
+    if (user) {
       navigate("/orders");
     }
-  }, [users, navigate]);
+  }, [user, navigate]);
 
   return (
     <main className="signin d-flex flex-column gap-4 justify-content-center align-items-center">
