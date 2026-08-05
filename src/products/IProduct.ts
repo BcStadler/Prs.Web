@@ -4,6 +4,6 @@ export interface IProduct {
   id: number | undefined;
   name: string;
   price: number | undefined;
-  categoryId: number | undefined;
-  category: IVendor | undefined;
+  vendorId: number | undefined;
+  vendor: IVendor | undefined;
 }

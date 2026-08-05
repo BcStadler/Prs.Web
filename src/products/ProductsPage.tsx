@@ -1,21 +1,84 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { IProduct } from "./IProduct";
-
-const products: IProduct[] = [
-  { id: 1, name: "Loaded Nachos", price: 9.99 },
-  { id: 2, name: "Mozzarella Sticks", price: 7.99 },
-  { id: 3, name: "Ribeye Steak", price: 24.99 },
-];
+import ProductCard from "./ProductCard";
+import ProductCardSkeleton from "./ProductCardSkeleton.tsx";
+import { productAPI } from "./ProductAPI";
+import toast from "react-hot-toast";
 
 function ProductsPage() {
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const productCardSkeletons = Array.from({ length: 12 }, (_value, index) => (
+    <ProductCardSkeleton key={index} />
+  ));
+
+  useEffect(() => {
+    let active = true;
+
+    const loadProducts = async () => {
+      setLoading(true);
+      try {
+        const data = await productAPI.list();
+        if (active) {
+          setProducts(data);
+        }
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred.";
+        toast.error(message, { duration: 6000 });
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void loadProducts();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  function removeProduct(deleted: IProduct) {
+    setProducts((previousProducts) =>
+      previousProducts.filter((product) => product.id !== deleted.id),
+    );
+  }
+
   return (
     <section className="content container-fluid mx-5 my-2 py-4">
-      <h2 className="pb-4 mb-4 border-bottom border-2">Products</h2>
-      <section className="list d-flex flex-row flex-wrap bg-light gap-5 p-4 rounded-4">
+      <div className="d-flex justify-content-between pb-4 mb-4 border-bottom border-2">
+        <h2>Products</h2>
+        <Link
+          to="/products/create"
+          className="btn btn-primary d-inline-flex align-items-center justify-content-center"
+          style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
+        >
+          <svg
+            className="bi pe-none me-2"
+            width={16}
+            height={16}
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M8 1a.5.5 0 0 1 .5.5v6h6a.5.5 0 0 1 0 1h-6v6a.5.5 0 0 1-1 0v-6h-6a.5.5 0 0 1 0-1h6v-6A.5.5 0 0 1 8 1Z" />
+          </svg>
+          Add Product
+        </Link>
+      </div>
+      <section className="list d-flex flex-row flex-wrap bg-light gap-4 p-4 rounded-4">
+        {loading && productCardSkeletons}
         {products.map((product) => (
-          <div className="card p-4" style={{ width: "23rem" }} key={product.id}>
-            <span className="fs-4 fw-medium">{product.name}</span>
-            <span className="fs-5 fw-light">${product.price}</span>
-          </div>
+          <ProductCard
+            key={product.id}
+            product={product}
+            onRemove={removeProduct}
+          />
         ))}
       </section>
     </section>
