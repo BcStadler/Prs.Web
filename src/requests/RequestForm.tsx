@@ -13,14 +13,11 @@ const emptyRequest: IRequest = {
   description: "",
   justification: "",
   deliveryMode: "PICKUP",
-  tableNumber: undefined,
-  notes: undefined,
   status: "NEW",
   rejectionReason: undefined,
   total: 0,
-  requestedAt: new Date().toISOString(),
   userId: undefined,
-  requestlines: [],
+  requestLines: [],
 };
 
 function RequestForm() {
@@ -56,7 +53,6 @@ function RequestForm() {
       request.userId = user?.id;
       request.status = request.status || "NEW";
       delete request.user;
-      delete request.requestItems;
 
       if (!request.id) {
         const newRequest = await requestsAPI.post(request);
@@ -80,19 +76,18 @@ function RequestForm() {
   return (
     <form className="d-flex flex-wrap gap-4 w-75" onSubmit={handleSubmit(save)}>
       <div className="w-50">
-        <label htmlFor="tableNumber" className="form-label">
-          Table Number
+        <label htmlFor="description" className="form-label">
+          Description
         </label>
         <input
-          id="tableNumber"
-          type="number"
-          {...register("tableNumber", {
-            valueAsNumber: true,
-            required: "Table number is required",
+          id="description"
+          type="text"
+          {...register("description", {
+            required: "Description is required",
           })}
-          className={`form-control ${errors?.tableNumber && "is-invalid"}`}
+          className={`form-control ${errors?.description && "is-invalid"}`}
         />
-        <div className="invalid-feedback">{errors?.tableNumber?.message}</div>
+        <div className="invalid-feedback">{errors?.description?.message}</div>
       </div>
       <div className="w-50">
         <label htmlFor="userId" className="form-label">
@@ -116,15 +111,34 @@ function RequestForm() {
         <div className="invalid-feedback">{errors?.userId?.message}</div>
       </div>
       <div className="w-75">
-        <label htmlFor="notes" className="form-label">
-          Description
+        <label htmlFor="justification" className="form-label">
+          Justification
         </label>
         <textarea
-          id="description"
+          id="justification"
           rows={4}
-          {...register("description")}
-          className="form-control"
+          {...register("justification", {
+            required: "Justification is required",
+          })}
+          className={`form-control ${errors?.justification && "is-invalid"}`}
         ></textarea>
+        <div className="invalid-feedback">{errors?.justification?.message}</div>
+      </div>
+      <div className="w-50">
+        <label htmlFor="deliveryMode" className="form-label">
+          Delivery Mode
+        </label>
+        <select
+          id="deliveryMode"
+          {...register("deliveryMode", {
+            required: "Delivery mode is required",
+          })}
+          className={`form-select ${errors?.deliveryMode && "is-invalid"}`}
+        >
+          <option value="PICKUP">Pickup</option>
+          <option value="DELIVERY">Delivery</option>
+        </select>
+        <div className="invalid-feedback">{errors?.deliveryMode?.message}</div>
       </div>
       <div className="w-50">
         <label htmlFor="status" className="form-label">

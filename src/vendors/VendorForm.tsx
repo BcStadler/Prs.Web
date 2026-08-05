@@ -14,7 +14,6 @@ const emptyVendor: IVendor = {
   zip: "",
   phone: "",
   email: "",
-  sortOrder: undefined,
 };
 
 function VendorForm() {
@@ -58,6 +57,18 @@ function VendorForm() {
   return (
     <form className="w-75" onSubmit={handleSubmit(save)}>
       <div className="mb-3">
+        <label htmlFor="code" className="form-label">
+          Code
+        </label>
+        <input
+          id="code"
+          type="text"
+          {...register("code", { required: "Code is required" })}
+          className={`form-control ${errors?.code && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.code?.message}</div>
+      </div>
+      <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Name
         </label>
@@ -70,19 +81,74 @@ function VendorForm() {
         <div className="invalid-feedback">{errors?.name?.message}</div>
       </div>
       <div className="mb-3">
-        <label htmlFor="sortOrder" className="form-label">
-          Sort Order
+        <label htmlFor="address" className="form-label">
+          Address
         </label>
         <input
-          id="sortOrder"
-          type="number"
-          {...register("sortOrder", {
-            required: "Sort order is required",
-            valueAsNumber: true,
-          })}
-          className={`form-control ${errors?.sortOrder && "is-invalid"}`}
+          id="address"
+          type="text"
+          {...register("address", { required: "Address is required" })}
+          className={`form-control ${errors?.address && "is-invalid"}`}
         />
-        <div className="invalid-feedback">{errors?.sortOrder?.message}</div>
+        <div className="invalid-feedback">{errors?.address?.message}</div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="city" className="form-label">
+          City
+        </label>
+        <input
+          id="city"
+          type="text"
+          {...register("city", { required: "City is required" })}
+          className={`form-control ${errors?.city && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.city?.message}</div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="state" className="form-label">
+          State
+        </label>
+        <input
+          id="state"
+          type="text"
+          {...register("state", { required: "State is required" })}
+          className={`form-control ${errors?.state && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.state?.message}</div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="zip" className="form-label">
+          Zip
+        </label>
+        <input
+          id="zip"
+          type="text"
+          {...register("zip", { required: "Zip is required" })}
+          className={`form-control ${errors?.zip && "is-invalid"}`}
+        />
+        <div className="invalid-feedback">{errors?.zip?.message}</div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="phone" className="form-label">
+          Phone
+        </label>
+        <input
+          id="phone"
+          type="text"
+          {...register("phone")}
+          className="form-control"
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          {...register("email")}
+          className="form-control"
+        />
       </div>
       <div className="d-flex justify-content-end w-100 mt-4">
         <Link

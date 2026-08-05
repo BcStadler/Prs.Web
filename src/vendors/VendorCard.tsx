@@ -57,7 +57,10 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
 
       <div className="d-flex flex-column gap-2">
         <span className="fs-4 fw-medium">{vendor.name}</span>
-        <span className="text-secondary">Sort Order: {vendor.sortOrder}</span>
+        <span className="text-secondary">Code: {vendor.code}</span>
+        <span className="text-secondary">
+          {vendor.city}, {vendor.state}
+        </span>
       </div>
     </div>
   );

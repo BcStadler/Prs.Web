@@ -253,7 +253,6 @@ function RequestDetailPage() {
                   <th scope="col">Product</th>
                   <th scope="col">Price</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Notes</th>
                   <th scope="col">Amount</th>
                   <th scope="col" />
                 </tr>
@@ -261,7 +260,7 @@ function RequestDetailPage() {
               <tbody>
                 {requestLines.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="text-body-secondary py-4">
+                    <td colSpan={5} className="text-body-secondary py-4">
                       No lines added yet.
                     </td>
                   </tr>
@@ -271,9 +270,6 @@ function RequestDetailPage() {
                     <td>{requestLine.product?.name}</td>
                     <td>{formatCurrency(requestLine.product?.price ?? 0)}</td>
                     <td>{requestLine.quantity}</td>
-                    <td className="text-body-secondary small">
-                      {requestLine.notes || "—"}
-                    </td>
                     <td>
                       {formatCurrency(
                         (requestLine.product?.price ?? 0) *
@@ -331,7 +327,6 @@ function RequestDetailPage() {
                       Add Request Line
                     </Link>
                   </td>
-                  <td />
                   <td />
                   <td className="text-end fw-semibold">Total</td>
                   <td className="fw-semibold">

@@ -48,10 +48,22 @@ function VendorDetailPage() {
       {vendor && (
         <section className="d-flex flex-wrap gap-4">
           <dl>
+            <dt>Code</dt>
+            <dd>{vendor.code}</dd>
             <dt>Name</dt>
             <dd>{vendor.name}</dd>
-            <dt>Sort Order</dt>
-            <dd>{vendor.sortOrder}</dd>
+            <dt>Address</dt>
+            <dd>{vendor.address}</dd>
+            <dt>City</dt>
+            <dd>{vendor.city}</dd>
+            <dt>State</dt>
+            <dd>{vendor.state}</dd>
+            <dt>Zip</dt>
+            <dd>{vendor.zip}</dd>
+            <dt>Phone</dt>
+            <dd>{vendor.phone || "—"}</dd>
+            <dt>Email</dt>
+            <dd>{vendor.email || "—"}</dd>
           </dl>
         </section>
       )}

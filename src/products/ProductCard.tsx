@@ -34,7 +34,7 @@ function ProductCard({ product, onRemove }: IProductCardProps) {
               onClick={async (event) => {
                 event.preventDefault();
                 if (
-                  confirm("Are you sure you want to delete this menu item?") &&
+                  confirm("Are you sure you want to delete this product?") &&
                   product.id
                 ) {
                   try {

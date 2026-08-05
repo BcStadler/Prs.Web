@@ -9,10 +9,10 @@ function RequestHeader({ request }: IRequestHeaderProps) {
   return (
     <section className="d-flex flex-wrap gap-4 justify-content-between pe-5">
       <dl>
-        <dt>Table Number</dt>
-        <dd>{request.tableNumber}</dd>
-        <dt>Notes</dt>
-        <dd>{request.notes || "—"}</dd>
+        <dt>Description</dt>
+        <dd>{request.description}</dd>
+        <dt>Justification</dt>
+        <dd>{request.justification}</dd>
       </dl>
       <dl>
         <dt>Status</dt>
@@ -37,23 +37,16 @@ function RequestHeader({ request }: IRequestHeaderProps) {
         </dd>
       </dl>
       <dl>
-        <dt>User</dt>
+        <dt>Requested By</dt>
         <dd>
           {request.user?.firstName} {request.user?.lastName}
         </dd>
-        <dt>Requested At</dt>
-        <dd>
-          {request.requestedAt
-            ? new Date(request.requestedAt).toLocaleTimeString([], {
-                hour: "numeric",
-                minute: "2-digit",
-              })
-            : "—"}
-        </dd>
+        <dt>Delivery Mode</dt>
+        <dd>{request.deliveryMode}</dd>
         {request.status?.trim().toUpperCase() === "REJECTED" && (
           <>
             <dt>Rejection Reason</dt>
-            <dd>{request.rejectionReason || request.RejectionReason || "—"}</dd>
+            <dd>{request.rejectionReason || "—"}</dd>
           </>
         )}
       </dl>

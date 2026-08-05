@@ -8,7 +8,4 @@ export interface IRequestLine {
   productId: number;
   product?: IProduct;
   request?: IRequest;
-
-  notes?: string;
-  RequestId?: number;
 }

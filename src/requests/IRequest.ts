@@ -12,16 +12,4 @@ export interface IRequest {
   userId?: number;
   user?: IUser;
   requestLines?: IRequestLine[];
-
-  tableNumber?: number;
-  notes?: string;
-  orderedAt?: string;
-  requestedAt?: string;
-  userName?: string;
-  staff?: IUser;
-  staffName?: string;
-  orderItems?: IRequestLine[];
-  requestItems?: IRequestLine[];
-  requestlines?: IRequestLine[];
-  RejectionReason?: string;
 }

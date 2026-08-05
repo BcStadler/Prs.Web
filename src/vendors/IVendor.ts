@@ -8,7 +8,4 @@ export interface IVendor {
   zip: string;
   phone?: string;
   email?: string;
-
-
-  sortOrder?: number;
 }
