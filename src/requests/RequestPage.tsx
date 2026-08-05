@@ -78,7 +78,7 @@ function RequestsPage() {
           >
             +
           </span>
-          <span>Add Request</span>
+          <span>Create a Request</span>
         </Link>
       </div>
       <section className="list bg-body-tertiary p-4 rounded-4">
@@ -98,9 +98,8 @@ function RequestsPage() {
         <table className="table table-hover w-100 rounded-4">
           <thead>
             <tr>
-              <th scope="col">Request #</th>
-              <th scope="col">Table</th>
-              <th scope="col">Notes</th>
+              <th scope="col">#</th>
+              <th scope="col">Description</th>
               <th scope="col">Status</th>
               <th scope="col">Total</th>
               <th scope="col">User</th>

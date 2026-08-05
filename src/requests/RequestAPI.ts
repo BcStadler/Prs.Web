@@ -1,7 +1,7 @@
 import { IRequest, IRequests } from "./IRequest";
 import { BASE_URL, checkStatus, parseJSON } from "../utility/fetchUtilities";
 
-const url = `${BASE_URL}/requestss`;
+const url = `${BASE_URL}/requests`;
 
 export const requestsAPI = {
   list(status?: string): Promise<IRequest[]> {

@@ -51,7 +51,7 @@ function UserForm() {
     }
 
     toast.success("Successfully saved.");
-    navigate("/user");
+    navigate("/users");
   };
 
   return (
@@ -171,7 +171,7 @@ function UserForm() {
       </div>
       <div className="d-flex justify-content-end w-100 mt-4">
         <Link
-          to="/user"
+          to="/users"
           className="btn me-2"
           style={{
             color: "#ff0000",

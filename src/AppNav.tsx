@@ -16,11 +16,11 @@ function AppNav() {
       className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary border-end min-vh-100 position-sticky"
       style={{ width: 280 }}
     >
-      <Nav.Item as="li" className="text-secondary fw-bold mb-2">
-        Serve
+      <Nav.Item as="li" className="text-secondary fs-4 fw-semi-bold mb-2">
+        Purchase
       </Nav.Item>
       <Nav.Item as="li">
-        <Nav.Link eventKey="/orders" as={Link} to="/orders">
+        <Nav.Link eventKey="/requests" as={Link} to="/requests">
           <svg
             className="bi pe-none me-2"
             width={16}
@@ -36,7 +36,7 @@ function AppNav() {
       </Nav.Item>
       {canManage && (
         <Nav.Item as="li">
-          <Nav.Link eventKey="/menuitems" as={Link} to="/menuitems">
+          <Nav.Link eventKey="/products" as={Link} to="/products">
             <svg
               className="bi pe-none me-2"
               width={16}
@@ -54,7 +54,7 @@ function AppNav() {
       )}
       {canManage && (
         <Nav.Item as="li">
-          <Nav.Link eventKey="/categories" as={Link} to="/categories">
+          <Nav.Link eventKey="/vendors" as={Link} to="/vendors">
             <svg
               className="bi pe-none me-2"
               width={16}
@@ -71,7 +71,7 @@ function AppNav() {
       )}
       {canManage && (
         <Nav.Item as="li">
-          <Nav.Link eventKey="/user" as={Link} to="/user">
+          <Nav.Link eventKey="/users" as={Link} to="/users">
             <svg
               className="bi pe-none me-2"
               width={16}
@@ -82,7 +82,7 @@ function AppNav() {
             >
               <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1c-2.355 0-4.5 1.5-4.5 3.5V14h9v-1.5C12.5 10.5 10.355 9 8 9Z" />
             </svg>
-            User
+            Users
           </Nav.Link>
         </Nav.Item>
       )}

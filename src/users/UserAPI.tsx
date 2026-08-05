@@ -1,7 +1,7 @@
 import { IUser } from "./IUser";
 import { BASE_URL, checkStatus, parseJSON } from "../utility/fetchUtilities";
 
-const url = `${BASE_URL}/user`;
+const url = `${BASE_URL}/users`;
 
 export const userAPI = {
   list(): Promise<IUser[]> {

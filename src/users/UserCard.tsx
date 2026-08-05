@@ -25,7 +25,7 @@ function UserCard({ user, onRemove }: IUserCardProps) {
           />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item as={Link} to={`/user/edit/${user.id}`}>
+          <Dropdown.Item as={Link} to={`/users/edit/${user.id}`}>
             Edit
           </Dropdown.Item>
           <Dropdown.Item

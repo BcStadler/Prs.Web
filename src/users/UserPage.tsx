@@ -55,7 +55,7 @@ function UserPage() {
       <div className="d-flex align-items-center justify-content-between pb-4 mb-4 border-bottom border-2">
         <h2 className="mb-0">User</h2>
         <Link
-          to="/user/create"
+          to="/users/create"
           className="btn btn-primary d-inline-flex align-items-center justify-content-center"
           style={{ backgroundColor: "#FF7A00", borderColor: "#FF7A00" }}
         >
