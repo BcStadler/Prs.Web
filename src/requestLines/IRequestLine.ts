@@ -8,5 +8,5 @@ export interface IRequestLine {
   requestId: number | undefined;
   productId: number | undefined;
   product: IProduct | undefined;
-  order: IRequest | undefined;
+  request?: IRequest | undefined;
 }
