@@ -54,9 +54,9 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
       </Dropdown>
 
       <div className="d-flex flex-column gap-2">
-        <span className="fs-4 fw-medium">
+        <span className="fs-3 fw-medium">
           {vendor.name}
-          <span className="badge text-bg-dark ms-2">{vendor.code}</span>
+          <span className="badge text-bg-secondary ms-2">{vendor.code}</span>
         </span>
         <span className="text-secondary">{vendor.address}</span>
         <span className="text-secondary">
