@@ -14,16 +14,19 @@ function Header() {
 
   return (
     <header>
-      <div className="navbar bg-body-tertiary py-4 border-bottom">
+      <div
+        className="navbar bg-body-tertiary border-bottom"
+        style={{ paddingTop: "0.9rem", paddingBottom: "0.9rem" }}
+      >
         <div className="container-fluid">
           <Link
             to="/"
             className="d-flex align-items-center link-body-emphasis text-decoration-none"
           >
             <svg
-              width={100}
-              height={75}
-              viewBox="0 0 78 32"
+              width="3rem"
+              height="3rem"
+              viewBox="0 0 50 36"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -37,8 +40,8 @@ function Header() {
               />
             </svg>
             <span
-              className="medium ms-1 fw-semibold"
-              style={{ color: "#000000" }}
+              className="small fw-semibold"
+              style={{ color: "#000000", marginLeft: "0.25rem" }}
             >
               Purchase Request System
             </span>
