@@ -30,7 +30,7 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
           >
             <i
               className="bi bi-three-dots-vertical pe-none me-2"
-              style={{ color: "#007AFF" }}
+              style={{ color: "#000" }}
               aria-hidden="true"
             />
           </Dropdown.Toggle>
