@@ -21,8 +21,8 @@ function Header() {
             className="d-flex align-items-center link-body-emphasis text-decoration-none"
           >
             <svg
-              width={75}
-              height={50}
+              width={100}
+              height={75}
               viewBox="0 0 78 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

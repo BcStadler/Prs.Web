@@ -6,7 +6,7 @@ function VendorEditPage() {
       <div className="d-flex justify-content-between pb-4 mb-5 border-bottom border-2">
         <h2>Edit Vendor</h2>
       </div>
-      <VendorForm />
+      <VendorForm showPlaceholders={false} />
     </section>
   );
 }

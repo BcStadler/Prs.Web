@@ -12,59 +12,76 @@ interface IVendorCardProps {
 
 function VendorCard({ vendor, onRemove }: IVendorCardProps) {
   return (
-    <div className="card p-4 position-relative" style={{ width: "23rem" }}>
-      <Dropdown className="position-absolute top-0 end-0 mt-2 me-2" align="end">
-        <Dropdown.Toggle
-          className="btn btn-link text-body border-0 p-1 dropdown-toggle-no-caret"
-          aria-label={`Open actions for ${vendor.name}`}
-          style={{ textDecoration: "none" }}
-        >
-          <i
-            className="bi bi-three-dots-vertical pe-none fs-5"
-            aria-hidden="true"
-          />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item as={Link} to={`/vendors/edit/${vendor.id}`}>
-            Edit
-          </Dropdown.Item>
-          <Dropdown.Item
-            as="a"
-            href="#"
-            onClick={async (event) => {
-              event.preventDefault();
-              if (confirm("Delete this vendor?") && vendor.id) {
-                try {
-                  await vendorAPI.delete(vendor.id);
-                  onRemove(vendor);
-                  toast.success("Successfully deleted.");
-                } catch (error) {
-                  const message =
-                    error instanceof Error
-                      ? error.message
-                      : "An unexpected error occurred.";
-                  toast.error(message, { duration: 6000 });
-                }
-              }
-            }}
-          >
-            Delete
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-
-      <div className="d-flex flex-column gap-2">
-        <span className="fs-3 fw-medium">
-          {vendor.name}
-          <span className="badge text-bg-secondary ms-2">{vendor.code}</span>
-        </span>
-        <span className="text-secondary">{vendor.address}</span>
-        <span className="text-secondary">
-          {vendor.city}, {vendor.state} {vendor.zip}
-        </span>
-        {vendor.phone && <span>{formatPhoneNumber(vendor.phone)}</span>}
-        {vendor.email && <span>{vendor.email}</span>}
+    <div className="card" style={{ width: "23rem" }}>
+      <div className="progress">
+        <div
+          className="progress-bar bg-primary"
+          role="progressbar"
+          style={{ width: "60%" }}
+        />
       </div>
+
+      <address className="py-4 px-4 mb-0">
+        <Dropdown className="d-flex justify-content-end" align="end">
+          <Dropdown.Toggle
+            className="btn btn-light border-0 p-0"
+            aria-label={`Open actions for ${vendor.name}`}
+            style={{ background: "none" }}
+          >
+            <i
+              className="bi bi-three-dots-vertical pe-none me-2"
+              style={{ color: "#007AFF" }}
+              aria-hidden="true"
+            />
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to={`/vendors/edit/${vendor.id}`}>
+              Edit
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="a"
+              href="#"
+              onClick={async (event) => {
+                event.preventDefault();
+                if (confirm("Delete this vendor?") && vendor.id) {
+                  try {
+                    await vendorAPI.delete(vendor.id);
+                    onRemove(vendor);
+                    toast.success("Successfully deleted.");
+                  } catch (error) {
+                    const message =
+                      error instanceof Error
+                        ? error.message
+                        : "An unexpected error occurred.";
+                    toast.error(message, { duration: 6000 });
+                  }
+                }
+              }}
+            >
+              Delete
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <br />
+        <span className="fs-4 lh-l fw-medium">{vendor.name}</span>
+        <br />
+        <div className="badge text bg-secondary mt-1">{vendor.code}</div>
+        <br />
+        <br />
+        <p className="mb-1 text-secondary small">{vendor.address}</p>
+        <p className="mb-1 text-secondary small">
+          {vendor.city}, {vendor.state} {vendor.zip}
+        </p>
+        {vendor.phone && (
+          <p className="mb-1 text-secondary small">
+            {formatPhoneNumber(vendor.phone)}
+          </p>
+        )}
+        {vendor.email && (
+          <p className="mb-0 text-secondary small">{vendor.email}</p>
+        )}
+      </address>
     </div>
   );
 }

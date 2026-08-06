@@ -69,7 +69,11 @@ const emptyVendor: IVendor = {
   email: "",
 };
 
-function VendorForm() {
+type VendorFormProps = {
+  showPlaceholders?: boolean;
+};
+
+function VendorForm({ showPlaceholders = false }: VendorFormProps) {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -113,37 +117,50 @@ function VendorForm() {
   };
 
   return (
-    <form className="d-flex flex-wrap w-75 gap-2" onSubmit={handleSubmit(save)}>
-      <div className="mb-3 w-25">
-        <label htmlFor="code" className="form-label">
-          Vendor Code
-        </label>
-        <input
-          id="code"
-          type="text"
-          {...register("code", {
-            required: "Vendor code is required",
-            maxLength: {
-              value: 7,
-              message: "Vendor code cannot exceed 7 characters",
-            },
-          })}
-          className={`form-control ${errors?.code && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.code?.message}</div>
+    <form
+      className="d-flex flex-column gap-4 w-100"
+      onSubmit={handleSubmit(save)}
+    >
+      <div className="d-flex flex-wrap gap-4 w-100">
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 160, maxWidth: 180 }}
+        >
+          <label htmlFor="code" className="form-label">
+            Vendor Code
+          </label>
+          <input
+            id="code"
+            type="text"
+            placeholder={
+              showPlaceholders ? "Enter short vendor code" : undefined
+            }
+            {...register("code", {
+              required: "Vendor code is required",
+              maxLength: {
+                value: 7,
+                message: "Vendor code cannot exceed 7 characters",
+              },
+            })}
+            className={`form-control ${errors?.code && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.code?.message}</div>
+        </div>
+        <div className="mb-3 flex-grow-1" style={{ minWidth: 320 }}>
+          <label htmlFor="name" className="form-label">
+            Vendor Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder={showPlaceholders ? "Enter vendor name" : undefined}
+            {...register("name", { required: "Vendor name is required" })}
+            className={`form-control ${errors?.name && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.name?.message}</div>
+        </div>
       </div>
-      <div className="mb-3 w-75">
-        <label htmlFor="name" className="form-label">
-          Vendor Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          {...register("name", { required: "Vendor name is required" })}
-          className={`form-control ${errors?.name && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.name?.message}</div>
-      </div>
+
       <div className="mb-3 w-100">
         <label htmlFor="address" className="form-label">
           Address
@@ -151,95 +168,103 @@ function VendorForm() {
         <input
           id="address"
           type="text"
+          placeholder={showPlaceholders ? "Enter vendor's address" : undefined}
           {...register("address", { required: "Address is required" })}
           className={`form-control ${errors?.address && "is-invalid"}`}
         />
         <div className="invalid-feedback">{errors?.address?.message}</div>
       </div>
-      <div className="mb-3 w-50">
-        <label htmlFor="city" className="form-label">
-          City
-        </label>
-        <input
-          id="city"
-          type="text"
-          {...register("city", { required: "City is required" })}
-          className={`form-control ${errors?.city && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.city?.message}</div>
-      </div>
-      <div className="mb-3 w-25">
-        <label htmlFor="state" className="form-label">
-          State
-        </label>
-        <select
-          id="state"
-          {...register("state", {
-            validate: (value) => !!value || "State is required",
-          })}
-          className={`form-select ${errors?.state && "is-invalid"}`}
+
+      <div className="d-flex flex-wrap gap-4 w-100">
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 220, maxWidth: 300 }}
         >
-          <option value="">Select state...</option>
-          {usStates.map((state) => (
-            <option key={state} value={state}>
-              {state}
-            </option>
-          ))}
-        </select>
-        <div className="invalid-feedback">{errors?.state?.message}</div>
-      </div>
-      <div className="mb-3 w-25">
-        <label htmlFor="zip" className="form-label">
-          Zip
-        </label>
-        <input
-          id="zip"
-          type="text"
-          {...register("zip", { required: "Zip is required" })}
-          className={`form-control ${errors?.zip && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.zip?.message}</div>
-      </div>
-      <div className="mb-3 w-50">
-        <label htmlFor="phone" className="form-label">
-          Phone
-        </label>
-        <input
-          id="phone"
-          type="text"
-          {...register("phone")}
-          className="form-control"
-        />
-      </div>
-      <div className="mb-3 w-50">
-        <label htmlFor="email" className="form-label">
-          Email
-        </label>
-        <input
-          id="email"
-          type="text"
-          {...register("email")}
-          className="form-control"
-        />
-      </div>
-      <div className="d-flex justify-content-end w-100 mt-4">
-        <Link
-          to="/vendors"
-          className="btn me-2"
-          style={{
-            color: "#ff0000",
-            borderColor: "#ff0000",
-            borderWidth: 1,
-            borderStyle: "solid",
-          }}
+          <label htmlFor="city" className="form-label">
+            City
+          </label>
+          <input
+            id="city"
+            type="text"
+            placeholder={showPlaceholders ? "Enter city" : undefined}
+            {...register("city", { required: "City is required" })}
+            className={`form-control ${errors?.city && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.city?.message}</div>
+        </div>
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 150, maxWidth: 170 }}
         >
+          <label htmlFor="state" className="form-label">
+            State
+          </label>
+          <select
+            id="state"
+            {...register("state", {
+              validate: (value) => !!value || "State is required",
+            })}
+            className={`form-select ${errors?.state && "is-invalid"}`}
+          >
+            <option value="">Select state...</option>
+            {usStates.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+          <div className="invalid-feedback">{errors?.state?.message}</div>
+        </div>
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 140, maxWidth: 150 }}
+        >
+          <label htmlFor="zip" className="form-label">
+            Zip
+          </label>
+          <input
+            id="zip"
+            type="text"
+            placeholder={showPlaceholders ? "Enter zip code" : undefined}
+            {...register("zip", { required: "Zip is required" })}
+            className={`form-control ${errors?.zip && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.zip?.message}</div>
+        </div>
+      </div>
+
+      <div className="d-flex flex-wrap gap-4 w-100">
+        <div className="mb-3 flex-grow-1" style={{ minWidth: 220 }}>
+          <label htmlFor="phone" className="form-label">
+            Phone
+          </label>
+          <input
+            id="phone"
+            type="text"
+            placeholder={showPlaceholders ? "Enter phone number" : undefined}
+            {...register("phone")}
+            className="form-control"
+          />
+        </div>
+        <div className="mb-3 flex-grow-1" style={{ minWidth: 220 }}>
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            id="email"
+            type="text"
+            placeholder={showPlaceholders ? "Enter email address" : undefined}
+            {...register("email")}
+            className="form-control"
+          />
+        </div>
+      </div>
+
+      <div className="d-flex gap-2 justify-content-end mt-3">
+        <Link to="/vendors" className="btn btn-outline-primary">
           Cancel
         </Link>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
-        >
+        <button type="submit" className="btn btn-primary">
           <svg
             className="bi me-2"
             width={16}
