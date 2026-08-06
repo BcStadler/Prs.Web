@@ -18,7 +18,11 @@ const emptyProduct: IProduct = {
   vendor: {} as IVendor,
 };
 
-function ProductForm() {
+type ProductFormProps = {
+  showPlaceholders?: boolean;
+};
+
+function ProductForm({ showPlaceholders = false }: ProductFormProps) {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [vendors, setVendors] = useState<IVendor[]>([]);
@@ -30,6 +34,7 @@ function ProductForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<IProduct>({
     defaultValues: async () => {
@@ -63,117 +68,128 @@ function ProductForm() {
     navigate("/products");
   };
 
+  const selectedVendorId = watch("vendorId");
+
   return (
-    <form className="d-flex flex-wrap w-75 gap-2" onSubmit={handleSubmit(save)}>
-      <div className="mb-3 w-25">
-        <label htmlFor="partNumber" className="form-label">
-          Product Number
-        </label>
-        <input
-          id="partNumber"
-          type="text"
-          {...register("partNumber", {
-            required: "Product number is required",
-            maxLength: {
-              value: 20,
-              message: "Product number cannot exceed 20 characters",
-            },
-          })}
-          className={`form-control ${errors?.partNumber && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.partNumber?.message}</div>
+    <form
+      className="d-flex flex-column w-75 gap-2"
+      onSubmit={handleSubmit(save)}
+    >
+      <div className="d-flex flex-row w-100 gap-4">
+        <div className="mb-3 w-25">
+          <label htmlFor="partNumber" className="form-label">
+            Product Number
+          </label>
+          <input
+            id="partNumber"
+            type="text"
+            placeholder={showPlaceholders ? "Enter product number" : undefined}
+            {...register("partNumber", {
+              required: "Product number is required",
+              maxLength: {
+                value: 20,
+                message: "Product number cannot exceed 20 characters",
+              },
+            })}
+            className={`form-control ${errors?.partNumber && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.partNumber?.message}</div>
+        </div>
+        <div className="mb-3 w-75">
+          <label htmlFor="name" className="form-label">
+            Product Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder={showPlaceholders ? "Enter product name" : undefined}
+            {...register("name", { required: "Product name is required" })}
+            className={`form-control ${errors?.name && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.name?.message}</div>
+        </div>
       </div>
-      <div className="mb-3 w-75">
-        <label htmlFor="name" className="form-label">
-          Product Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          {...register("name", { required: "Product name is required" })}
-          className={`form-control ${errors?.name && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.name?.message}</div>
+      <div className="d-flex flex-row w-100 gap-4">
+        <div className="mb-3 w-25">
+          <label htmlFor="price" className="form-label">
+            Price
+          </label>
+          <input
+            id="price"
+            type="number"
+            step="0.01"
+            placeholder={showPlaceholders ? "Enter product's price" : undefined}
+            {...register("price", {
+              setValueAs: (value) => (value === "" ? undefined : Number(value)),
+              required: "Price is required",
+            })}
+            className={`form-control ${errors?.price && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.price?.message}</div>
+        </div>
+        <div className="mb-3 w-25">
+          <label htmlFor="unit" className="form-label">
+            Unit
+          </label>
+          <input
+            id="unit"
+            type="text"
+            placeholder={showPlaceholders ? "Enter unit" : undefined}
+            {...register("unit", { required: "Unit is required" })}
+            className={`form-control ${errors?.unit && "is-invalid"}`}
+          />
+          <div className="invalid-feedback">{errors?.unit?.message}</div>
+        </div>
+        <div className="mb-3 w-50">
+          <label htmlFor="vendorId" className="form-label">
+            Vendor
+          </label>
+          <div className="position-relative">
+            <select
+              id="vendorId"
+              defaultValue={showPlaceholders ? "" : undefined}
+              {...register("vendorId", {
+                setValueAs: (value) =>
+                  value === "" ? undefined : Number(value),
+                required: "Vendor is required",
+              })}
+              className={`form-select ${errors?.vendorId && "is-invalid"}`}
+            >
+              {showPlaceholders && <option value="" hidden></option>}
+              {vendors.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {showPlaceholders && !selectedVendorId && (
+              <span className="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary pe-none">
+                Select Vendor...
+              </span>
+            )}
+          </div>
+          <div className="invalid-feedback">{errors?.vendorId?.message}</div>
+        </div>
       </div>
-      <div className="mb-3 w-25">
-        <label htmlFor="price" className="form-label">
-          Price
-        </label>
-        <input
-          id="price"
-          type="number"
-          step="0.01"
-          {...register("price", {
-            setValueAs: (value) => (value === "" ? undefined : Number(value)),
-            required: "Price is required",
-          })}
-          className={`form-control ${errors?.price && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.price?.message}</div>
-      </div>
-      <div className="mb-3 w-25">
-        <label htmlFor="unit" className="form-label">
-          Unit
-        </label>
-        <input
-          id="unit"
-          type="text"
-          {...register("unit", { required: "Unit is required" })}
-          className={`form-control ${errors?.unit && "is-invalid"}`}
-        />
-        <div className="invalid-feedback">{errors?.unit?.message}</div>
-      </div>
-      <div className="mb-3 w-50">
-        <label htmlFor="vendorId" className="form-label">
-          Vendor
-        </label>
-        <select
-          id="vendorId"
-          {...register("vendorId", {
-            setValueAs: (value) => (value === "" ? undefined : Number(value)),
-            required: "Vendor is required",
-          })}
-          className={`form-select ${errors?.vendorId && "is-invalid"}`}
-        >
-          <option value="">Select Vendor...</option>
-          {vendors.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        <div className="invalid-feedback">{errors?.vendorId?.message}</div>
-      </div>
-      <div className="d-flex justify-content-end w-100 mt-4">
-        <Link
-          to="/products"
-          className="btn me-2"
-          style={{
-            color: "#ff0000",
-            borderColor: "#ff0000",
-            borderWidth: 1,
-            borderStyle: "solid",
-          }}
-        >
-          Cancel
-        </Link>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}
-        >
-          <svg
-            className="bi me-2"
-            width={16}
-            height={16}
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4.5L11.5 0H2zm0 1h9v3.5A1.5 1.5 0 0 0 12.5 6H15v8a1 1 0 0 1-1 1h-1v-3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm10 0.5L14.5 4H12a0.5 0.5 0 0 1-0.5-0.5v-2zM4 15v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3H4z" />
-          </svg>
-          Save Product
-        </button>
+      <div className="d-flex flex-row justify-content-end w-100 gap-4 mt-4">
+        <div className="d-flex justify-content-end">
+          <Link to="/products" className="btn btn-outline-primary me-2">
+            Cancel
+          </Link>
+          <button type="submit" className="btn btn-primary">
+            <svg
+              className="bi me-2"
+              width={16}
+              height={16}
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4.5L11.5 0H2zm0 1h9v3.5A1.5 1.5 0 0 0 12.5 6H15v8a1 1 0 0 1-1 1h-1v-3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm10 0.5L14.5 4H12a0.5 0.5 0 0 1-0.5-0.5v-2zM4 15v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3H4z" />
+            </svg>
+            Save Product
+          </button>
+        </div>
       </div>
     </form>
   );
