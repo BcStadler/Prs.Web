@@ -38,7 +38,7 @@ function ProductCard({ product, onRemove }: IProductCardProps) {
               <i
                 className="bi bi-three-dots-vertical pe-none fs-5"
                 aria-hidden="true"
-                style={{ color: "#007AFF" }}
+                style={{ color: "#000" }}
               />
             </Dropdown.Toggle>
             <Dropdown.Menu>
