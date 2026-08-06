@@ -76,7 +76,7 @@ function ProductCard({ product, onRemove }: IProductCardProps) {
 
         <span className="fs-4 lh-1 fw-medium mt-3">{product.name}</span>
         <span className="fs-5 fw-light mt-1">
-          {formatCurrency(product.price)} {normalizedUnit}
+          {formatCurrency(product.price)}/{normalizedUnit}
         </span>
 
         <div className="mt-auto pt-4">
