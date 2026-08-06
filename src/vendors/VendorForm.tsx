@@ -146,7 +146,10 @@ function VendorForm({ showPlaceholders = false }: VendorFormProps) {
           />
           <div className="invalid-feedback">{errors?.code?.message}</div>
         </div>
-        <div className="mb-3 flex-grow-1" style={{ minWidth: 320 }}>
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 160, maxWidth: 320 }}
+        >
           <label htmlFor="name" className="form-label">
             Vendor Name
           </label>
@@ -161,7 +164,7 @@ function VendorForm({ showPlaceholders = false }: VendorFormProps) {
         </div>
       </div>
 
-      <div className="mb-3 w-100">
+      <div className="mb-3" style={{ maxWidth: "50%" }}>
         <label htmlFor="address" className="form-label">
           Address
         </label>
@@ -234,7 +237,10 @@ function VendorForm({ showPlaceholders = false }: VendorFormProps) {
       </div>
 
       <div className="d-flex flex-wrap gap-4 w-100">
-        <div className="mb-3 flex-grow-1" style={{ minWidth: 220 }}>
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 220, maxWidth: 300 }}
+        >
           <label htmlFor="phone" className="form-label">
             Phone
           </label>
@@ -246,7 +252,10 @@ function VendorForm({ showPlaceholders = false }: VendorFormProps) {
             className="form-control"
           />
         </div>
-        <div className="mb-3 flex-grow-1" style={{ minWidth: 220 }}>
+        <div
+          className="mb-3 flex-grow-1"
+          style={{ minWidth: 220, maxWidth: 300 }}
+        >
           <label htmlFor="email" className="form-label">
             Email
           </label>

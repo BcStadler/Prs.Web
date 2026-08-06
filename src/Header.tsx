@@ -37,7 +37,7 @@ function Header() {
               />
             </svg>
             <span
-              className="medium mx-2 fw-semibold"
+              className="medium ms-1 fw-semibold"
               style={{ color: "#000000" }}
             >
               Purchase Request System
