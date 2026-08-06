@@ -11,10 +11,10 @@ const emptyProduct: IProduct = {
   id: undefined,
   partNumber: "",
   name: "",
-  price: 0,
+  price: Number.NaN,
   unit: "",
   photoPath: "",
-  vendorId: 0,
+  vendorId: Number.NaN,
   vendor: {} as IVendor,
 };
 
@@ -104,7 +104,7 @@ function ProductForm() {
           type="number"
           step="0.01"
           {...register("price", {
-            valueAsNumber: true,
+            setValueAs: (value) => (value === "" ? undefined : Number(value)),
             required: "Price is required",
           })}
           className={`form-control ${errors?.price && "is-invalid"}`}
@@ -130,8 +130,8 @@ function ProductForm() {
         <select
           id="vendorId"
           {...register("vendorId", {
-            valueAsNumber: true,
-            validate: (value) => value > 0 || "Vendor is required",
+            setValueAs: (value) => (value === "" ? undefined : Number(value)),
+            required: "Vendor is required",
           })}
           className={`form-select ${errors?.vendorId && "is-invalid"}`}
         >

@@ -24,7 +24,7 @@ function VendorCard({ vendor, onRemove }: IVendorCardProps) {
       <address className="py-4 px-4 mb-0">
         <Dropdown className="d-flex justify-content-end" align="end">
           <Dropdown.Toggle
-            className="btn btn-light border-0 p-0"
+            className="btn btn-light border-0 p-0 dropdown-toggle-no-caret"
             aria-label={`Open actions for ${vendor.name}`}
             style={{ background: "none" }}
           >

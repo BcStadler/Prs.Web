@@ -20,9 +20,9 @@ function RequestLineForm() {
 
   const emptyRequestLine: IRequestLine = {
     id: undefined,
-    quantity: 0,
+    quantity: Number.NaN,
     requestId,
-    productId: 0,
+    productId: Number.NaN,
     product: undefined,
     request: undefined,
   };
@@ -50,6 +50,7 @@ function RequestLineForm() {
 
   const productId = watch("productId");
   const quantity = watch("quantity");
+  const normalizedQuantity = Number.isFinite(quantity) ? quantity : 0;
 
   useEffect(() => {
     const currentProduct = products.find(
@@ -100,10 +101,10 @@ function RequestLineForm() {
         <select
           id="productId"
           {...register("productId", {
-            valueAsNumber: true,
+            setValueAs: (value) => (value === "" ? undefined : Number(value)),
             required: "Product is required",
           })}
-          className={`form-select ${errors?.productId ? "is-invalid" : ""}`}
+          className={`form-select ${errors?.productId && "is-invalid"}`}
         >
           <option value="">Select...</option>
           {products.map((product) => (
@@ -129,18 +130,18 @@ function RequestLineForm() {
           type="number"
           min={1}
           {...register("quantity", {
+            setValueAs: (value) => (value === "" ? undefined : Number(value)),
             required: "Quantity is required",
             min: { value: 1, message: "Quantity must be at least 1" },
-            valueAsNumber: true,
           })}
-          className={`form-control ${errors?.quantity ? "is-invalid" : ""}`}
+          className={`form-control ${errors?.quantity && "is-invalid"}`}
         />
         <div className="invalid-feedback">{errors?.quantity?.message}</div>
       </div>
       <div className="mb-3">
         <label className="form-label">Amount</label>
         <div className="form-label">
-          {formatCurrency((selectedProduct?.price ?? 0) * (quantity ?? 0))}
+          {formatCurrency((selectedProduct?.price ?? 0) * normalizedQuantity)}
         </div>
       </div>
       <div className="d-flex justify-content-end mt-5">
