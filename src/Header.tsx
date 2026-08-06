@@ -40,7 +40,7 @@ function Header() {
               />
             </svg>
             <span
-              className="small fw-semibold"
+              className="px-2 medium fw-semibold"
               style={{ color: "#000000", marginLeft: "0.25rem" }}
             >
               Purchase Request System

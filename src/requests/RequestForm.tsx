@@ -20,6 +20,37 @@ const emptyRequest: IRequest = {
   requestLines: [],
 };
 
+function normalizeDeliveryMode(deliveryMode?: string) {
+  if (!deliveryMode) return "";
+
+  const normalized = deliveryMode.trim().toUpperCase().replace(/\s+/g, "_");
+
+  switch (normalized) {
+    case "PICKUP":
+    case "DELIVERY":
+    case "SIGNATURE_DELIVERY":
+      return normalized;
+    default:
+      return deliveryMode;
+  }
+}
+
+function normalizeStatus(status?: string) {
+  if (!status) return "";
+
+  const normalized = status.trim().toUpperCase().replace(/\s+/g, "_");
+
+  switch (normalized) {
+    case "NEW":
+    case "REVIEW":
+    case "APPROVED":
+    case "REJECTED":
+      return normalized;
+    default:
+      return status;
+  }
+}
+
 function RequestForm() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
@@ -44,7 +75,12 @@ function RequestForm() {
         return emptyRequest;
       }
 
-      return await requestsAPI.find(Number(id));
+      const request = await requestsAPI.find(Number(id));
+      return {
+        ...request,
+        deliveryMode: normalizeDeliveryMode(request.deliveryMode),
+        status: normalizeStatus(request.status),
+      };
     },
   });
 
@@ -55,7 +91,8 @@ function RequestForm() {
         request.status = "NEW";
       }
 
-      request.status = request.status || "NEW";
+      request.status = normalizeStatus(request.status) || "NEW";
+      request.deliveryMode = normalizeDeliveryMode(request.deliveryMode);
       delete request.user;
 
       if (!request.id) {
@@ -110,7 +147,7 @@ function RequestForm() {
             <option value="">Select...</option>
             <option value="PICKUP">Pickup</option>
             <option value="DELIVERY">Delivery</option>
-            <option value="SIGNATURE DELIVERY">Signature Delivery</option>
+            <option value="SIGNATURE_DELIVERY">Signature Delivery</option>
           </select>
           <div className="invalid-feedback">
             {errors?.deliveryMode?.message}
