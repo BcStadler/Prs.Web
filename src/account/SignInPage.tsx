@@ -52,7 +52,7 @@ function SignInPage() {
       <svg
         width={150}
         height={100}
-        viewBox="0 0 78 32"
+        viewBox="0 0 50 35"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
