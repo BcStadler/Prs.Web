@@ -5,9 +5,134 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>prs-web</title>
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          "Raleway",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        color: #212529;
+      }
+
+      .app-loading {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        background: rgb(214, 242, 255);
+        background: radial-gradient(
+          ellipse at center,
+          rgba(214, 242, 255, 1) 31%,
+          rgba(237, 250, 255, 1) 60%
+        );
+      }
+
+      .app-loading__brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        animation: app-loading-pulse 1.6s ease-in-out infinite;
+      }
+
+      .app-loading__name {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #312ecb;
+      }
+
+      .app-loading__bar {
+        width: 12rem;
+        height: 0.25rem;
+        border-radius: 999px;
+        background: rgba(0, 122, 255, 0.2);
+        overflow: hidden;
+      }
+
+      .app-loading__bar::before {
+        content: "";
+        display: block;
+        width: 40%;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #007aff 0%, #312ecb 100%);
+        animation: app-loading-slide 1.3s ease-in-out infinite;
+      }
+
+      @keyframes app-loading-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.55;
+        }
+      }
+
+      @keyframes app-loading-slide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(250%);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .app-loading__brand {
+          animation: none;
+        }
+
+        .app-loading__bar::before {
+          animation: none;
+          width: 100%;
+          opacity: 0.6;
+        }
+      }
+
+      .app-loading__status {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-loading" role="status" aria-live="polite">
+        <div class="app-loading__brand" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="150"
+            height="100"
+            viewBox="0 0 50 35"
+            fill="none"
+          >
+            <path
+              d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
+              fill="#007AFF"
+            />
+            <path
+              d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z"
+              fill="#312ECB"
+            />
+          </svg>
+          <span class="app-loading__name">Purchase Request System</span>
+        </div>
+        <div class="app-loading__bar" aria-hidden="true"></div>
+        <span class="app-loading__status">Loading the application...</span>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

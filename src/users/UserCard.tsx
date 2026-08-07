@@ -11,7 +11,8 @@ interface IUserCardProps {
 }
 
 function UserCard({ user, onRemove }: IUserCardProps) {
-  const initials = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
+  const initials =
+    `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
   const role = user.isAdmin
     ? "Admin"
     : user.isReviewer
@@ -61,8 +62,8 @@ function UserCard({ user, onRemove }: IUserCardProps) {
       </Dropdown>
       <div className="d-flex align-items-start gap-3">
         <div
-          className="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-semibold"
-          style={{ width: "2.5rem", height: "2.5rem", backgroundColor: "#0d6efd" }}
+          className="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary-subtle fs-4 text-secondary fw-semibold"
+          style={{ width: "3.5rem", height: "3.5rem", marginTop: "0.65rem" }}
           aria-hidden="true"
         >
           {initials}
