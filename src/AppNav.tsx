@@ -6,7 +6,6 @@ function AppNav() {
   const location = useLocation();
   const { user } = useUserContext();
   const isAdmin = !!user?.isAdmin;
-  const canManage = isAdmin || !!user?.isReviewer;
 
   return (
     <Nav
@@ -34,7 +33,7 @@ function AppNav() {
           Requests
         </Nav.Link>
       </Nav.Item>
-      {canManage && (
+      {isAdmin && (
         <Nav.Item as="li">
           <Nav.Link eventKey="/products" as={Link} to="/products">
             <svg
@@ -52,7 +51,7 @@ function AppNav() {
           </Nav.Link>
         </Nav.Item>
       )}
-      {canManage && (
+      {isAdmin && (
         <Nav.Item as="li">
           <Nav.Link eventKey="/vendors" as={Link} to="/vendors">
             <svg
@@ -69,7 +68,7 @@ function AppNav() {
           </Nav.Link>
         </Nav.Item>
       )}
-      {canManage && (
+      {isAdmin && (
         <Nav.Item as="li">
           <Nav.Link eventKey="/users" as={Link} to="/users">
             <svg
