@@ -212,17 +212,17 @@ function RequestForm() {
             ))}
           </select>
           <div className="invalid-feedback">{errors?.userId?.message}</div>
-        </div>
-      </div>
 
-      <div className="d-flex justify-content-end gap-2 pt-4 mt-2">
-        <Link to="/requests" className="btn btn-outline-primary">
-          Cancel
-        </Link>
-        <button type="submit" className="btn btn-primary action-button">
-          <i className="bi bi-save me-2" aria-hidden="true" />
-          Save request
-        </button>
+          <div className="d-flex justify-content-end gap-2 pt-4 mt-2">
+            <Link to="/requests" className="btn btn-outline-primary">
+              Cancel
+            </Link>
+            <button type="submit" className="btn btn-primary action-button">
+              <i className="bi bi-save me-2" aria-hidden="true" />
+              Save request
+            </button>
+          </div>
+        </div>
       </div>
     </form>
   );

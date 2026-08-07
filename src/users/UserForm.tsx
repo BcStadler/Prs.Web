@@ -65,6 +65,7 @@ function UserForm() {
             id="firstName"
             type="text"
             {...register("firstName", { required: "First name is required" })}
+            placeholder="Enter first name"
             className={`form-control ${errors?.firstName && "is-invalid"}`}
           />
           <div className="invalid-feedback">{errors?.firstName?.message}</div>
@@ -77,6 +78,7 @@ function UserForm() {
             id="lastName"
             type="text"
             {...register("lastName", { required: "Last name is required" })}
+            placeholder="Enter last name"
             className={`form-control ${errors?.lastName && "is-invalid"}`}
           />
           <div className="invalid-feedback">{errors?.lastName?.message}</div>
@@ -91,6 +93,7 @@ function UserForm() {
             id="email"
             type="text"
             {...register("email")}
+            placeholder="Enter email address"
             className="form-control"
           />
         </div>
@@ -102,6 +105,7 @@ function UserForm() {
             id="phone"
             type="text"
             {...register("phone")}
+            placeholder="Enter phone number"
             className="form-control"
           />
         </div>
@@ -118,6 +122,7 @@ function UserForm() {
               required: "Username is required",
               maxLength: { value: 50, message: "Username is too long" },
             })}
+            placeholder="Enter username"
             className={`form-control ${errors?.username && "is-invalid"}`}
           />
           <div className="invalid-feedback">{errors?.username?.message}</div>
@@ -133,6 +138,7 @@ function UserForm() {
               required: "Password is required",
               maxLength: { value: 60, message: "Password is too long" },
             })}
+            placeholder="Enter password"
             className={`form-control ${errors?.password && "is-invalid"}`}
           />
           <div className="invalid-feedback">{errors?.password?.message}</div>
