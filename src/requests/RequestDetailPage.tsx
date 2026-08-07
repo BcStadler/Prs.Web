@@ -72,11 +72,7 @@ function RequestDetailPage() {
 
     setLoading(true);
     try {
-      if (runningTotal <= 50) {
-        await requestsAPI.approve(request.id);
-      } else {
-        await requestsAPI.review(request.id);
-      }
+      await requestsAPI.review(request.id);
       toast.success("Successfully saved.");
       navigate("/requests");
     } catch (error) {

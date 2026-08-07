@@ -190,7 +190,6 @@ function RequestForm() {
           <div className="invalid-feedback">{errors?.status?.message}</div>
         </div>
 
-        {/* spacer pushes Requested By to the right column */}
         <div style={{ minWidth: "45%", maxWidth: "50%" }} aria-hidden="true" />
 
         <div style={{ minWidth: "45%", maxWidth: "50%" }}>
