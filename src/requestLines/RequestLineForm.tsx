@@ -18,15 +18,6 @@ function RequestLineForm() {
   const requestLineId = Number(lineId);
   const requestId = Number(id);
 
-  const emptyRequestLine: IRequestLine = {
-    id: undefined,
-    quantity: Number.NaN,
-    requestId,
-    productId: Number.NaN,
-    product: undefined,
-    request: undefined,
-  };
-
   async function loadProducts() {
     setProducts(await productAPI.list());
   }
@@ -41,7 +32,7 @@ function RequestLineForm() {
       await loadProducts();
 
       if (!lineId) {
-        return emptyRequestLine;
+        return { requestId } as IRequestLine;
       }
 
       return await requestLineAPI.find(requestLineId);
@@ -50,7 +41,8 @@ function RequestLineForm() {
 
   const productId = watch("productId");
   const quantity = watch("quantity");
-  const normalizedQuantity = Number.isFinite(quantity) ? quantity : 0;
+  const normalizedQuantity =
+    typeof quantity === "number" && Number.isFinite(quantity) ? quantity : 0;
 
   useEffect(() => {
     const currentProduct = products.find(
@@ -89,7 +81,7 @@ function RequestLineForm() {
 
   return (
     <form
-      className="brequest rounded-3 p-4 w-100"
+      className="border rounded-3 p-4 w-100"
       style={{ maxWidth: "520px" }}
       onSubmit={handleSubmit(save)}
     >
@@ -129,9 +121,10 @@ function RequestLineForm() {
           id="quantity"
           type="number"
           min={1}
+          placeholder="Enter quantity"
           {...register("quantity", {
             setValueAs: (value) => (value === "" ? undefined : Number(value)),
-            required: "Quantity is required",
+            required: "Quantity must be at least 1",
             min: { value: 1, message: "Quantity must be at least 1" },
           })}
           className={`form-control ${errors?.quantity && "is-invalid"}`}

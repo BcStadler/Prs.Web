@@ -65,10 +65,7 @@ function SignInPage() {
           fill="#312ECB"
         />
       </svg>
-      <span
-        className="mx-2 fs-3 mx-lg-4 fw-semibold text-dark-semibold"
-        style={{ color: "#0004ff" }}
-      >
+      <span className="mx-2 fs-3 mx-lg-4 fw-semibold text-dark">
         Purchase Request System
       </span>
 

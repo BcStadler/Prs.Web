@@ -55,7 +55,7 @@ function ProductsPage() {
         <h2>Products</h2>
         <Link to="/products/create" className="btn btn-primary action-button">
           <i className="bi bi-plus-lg me-2" aria-hidden="true" />
-          Create A Product
+          Create a product
         </Link>
       </div>
       <section className="list d-flex flex-row flex-wrap bg-light gap-5 p-4">

@@ -178,7 +178,7 @@ function ProductForm({ showPlaceholders = false }: ProductFormProps) {
           </Link>
           <button type="submit" className="btn btn-primary action-button">
             <i className="bi bi-save me-2" aria-hidden="true" />
-            Save Product
+            Save product
           </button>
         </div>
       </div>

@@ -84,6 +84,30 @@ function UserForm() {
       </div>
       <div className="d-flex gap-3 mb-3">
         <div className="flex-fill">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            id="email"
+            type="text"
+            {...register("email")}
+            className="form-control"
+          />
+        </div>
+        <div className="flex-fill">
+          <label htmlFor="phone" className="form-label">
+            Phone
+          </label>
+          <input
+            id="phone"
+            type="text"
+            {...register("phone")}
+            className="form-control"
+          />
+        </div>
+      </div>
+      <div className="d-flex gap-3 mb-3">
+        <div className="flex-fill">
           <label htmlFor="username" className="form-label">
             Username
           </label>
@@ -114,32 +138,8 @@ function UserForm() {
           <div className="invalid-feedback">{errors?.password?.message}</div>
         </div>
       </div>
-      <div className="d-flex gap-3 mb-3">
-        <div className="flex-fill">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            id="email"
-            type="text"
-            {...register("email")}
-            className="form-control"
-          />
-        </div>
-        <div className="flex-fill">
-          <label htmlFor="phone" className="form-label">
-            Phone
-          </label>
-          <input
-            id="phone"
-            type="text"
-            {...register("phone")}
-            className="form-control"
-          />
-        </div>
-      </div>
       <div className="mb-3">
-        <label className="form-label d-block">Roles</label>
+        <label className="form-label d-block">Role</label>
         <div className="form-check form-check-inline">
           <input
             {...register("isReviewer")}
@@ -169,7 +169,7 @@ function UserForm() {
         </Link>
         <button type="submit" className="btn btn-primary action-button">
           <i className="bi bi-save me-2" aria-hidden="true" />
-          Save User
+          Save user
         </button>
       </div>
     </form>

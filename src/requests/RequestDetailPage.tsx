@@ -333,11 +333,11 @@ function RequestDetailPage() {
                       Add a line
                     </Link>
                   </td>
-                  <td />
-                  <td className="text-end fw-semibold">Total</td>
                   <td className="fw-semibold">
                     {formatCurrency(runningTotal)}
                   </td>
+                  <td />
+                  <td />
                   <td />
                 </tr>
               </tfoot>
