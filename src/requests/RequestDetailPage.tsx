@@ -227,16 +227,7 @@ function RequestDetailPage() {
               className="btn btn-outline-primary icon-button-square"
               aria-label="Edit request"
             >
-              <svg
-                className="bi"
-                width={16}
-                height={16}
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10L3 14l.146-2.854 10-10zM11.207 2 4 9.207V12h2.793L14 4.793 11.207 2z" />
-              </svg>
+              <i className="bi bi-pencil" aria-hidden="true" />
             </Link>
           )}
         </div>
@@ -288,16 +279,7 @@ function RequestDetailPage() {
                           className="btn btn-outline-primary btn-sm icon-button-square"
                           aria-label="Edit request line"
                         >
-                          <svg
-                            className="bi"
-                            width={16}
-                            height={16}
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10L3 14l.146-2.854 10-10zM11.207 2 4 9.207V12h2.793L14 4.793 11.207 2z" />
-                          </svg>
+                          <i className="bi bi-pencil" aria-hidden="true" />
                         </Link>
                         <button
                           type="button"
@@ -305,17 +287,7 @@ function RequestDetailPage() {
                           aria-label="Delete request line"
                           onClick={() => handleShowDeleteLineModal(requestLine)}
                         >
-                          <svg
-                            className="bi"
-                            width={16}
-                            height={16}
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Zm2.5-.5A.5.5 0 0 1 11 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1h-1v9a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2V4h-1a1 1 0 1 1 0-2h3.086a1 1 0 0 1 .707-.293h3.414a1 1 0 0 1 .707.293H13.5a1 1 0 0 1 1 1Zm-10 1v9a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V4h-7Z" />
-                          </svg>
+                          <i className="bi bi-trash" aria-hidden="true" />
                         </button>
                       </div>
                     </td>
@@ -333,11 +305,11 @@ function RequestDetailPage() {
                       Add a line
                     </Link>
                   </td>
+                  <td />
+                  <td className="text-end fw-semibold">Total</td>
                   <td className="fw-semibold">
                     {formatCurrency(runningTotal)}
                   </td>
-                  <td />
-                  <td />
                   <td />
                 </tr>
               </tfoot>

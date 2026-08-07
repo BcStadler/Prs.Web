@@ -61,18 +61,10 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
             aria-label={`Open actions for request ${request.id}`}
             style={{ textDecoration: "none" }}
           >
-            <svg
-              width={18}
-              height={18}
-              viewBox="0 0 16 16"
-              fill="currentColor"
+            <i
+              className="bi bi-three-dots-vertical pe-none"
               aria-hidden="true"
-              className="pe-none"
-            >
-              <circle cx="8" cy="3" r="1.5" />
-              <circle cx="8" cy="8" r="1.5" />
-              <circle cx="8" cy="13" r="1.5" />
-            </svg>
+            />
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to={`/requests/detail/${request.id}`}>
