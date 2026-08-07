@@ -15,9 +15,7 @@ function VendorPage() {
 
   function removeVendor(vendorToRemove: IVendor) {
     setVendor((previousVendor) =>
-      previousVendor.filter(
-        (vendor) => vendor.id !== vendorToRemove.id,
-      ),
+      previousVendor.filter((vendor) => vendor.id !== vendorToRemove.id),
     );
   }
 
@@ -52,35 +50,18 @@ function VendorPage() {
   }, []);
 
   return (
-    <section className="content container-fluid mx-5 my-2 py-4">
+    <section className="content p-4 flex-grow-1">
       <div className="d-flex align-items-center justify-content-between pb-4 mb-4 border-bottom border-2">
         <h2 className="mb-0">Vendors</h2>
-        <Link
-          to="/vendors/create"
-          className="btn btn-primary d-inline-flex align-items-center justify-content-center"
-          style={{ backgroundColor: "#0d6efd ", borderColor: "#0d6efd " }}
-        >
-          <svg
-            className="bi pe-none me-2"
-            width={16}
-            height={16}
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M8 1a.5.5 0 0 1 .5.5v6h6a.5.5 0 0 1 0 1h-6v6a.5.5 0 0 1-1 0v-6h-6a.5.5 0 0 1 0-1h6v-6A.5.5 0 0 1 8 1Z" />
-          </svg>
+        <Link to="/vendors/create" className="btn btn-primary action-button">
+          <i className="bi bi-plus-lg me-2" aria-hidden="true" />
           Create a vendor
         </Link>
       </div>
       <section className="list d-flex flex-row flex-wrap gap-5 p-4">
         {loading && vendorCardSkeletons}
         {vendor.map((vendor) => (
-          <VendorCard
-            key={vendor.id}
-            vendor={vendor}
-            onRemove={removeVendor}
-          />
+          <VendorCard key={vendor.id} vendor={vendor} onRemove={removeVendor} />
         ))}
       </section>
     </section>

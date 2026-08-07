@@ -217,20 +217,8 @@ function RequestForm() {
           <Link to="/requests" className="btn btn-outline-primary me-2">
             Cancel
           </Link>
-          <button
-            type="submit"
-            className="btn btn-primary d-inline-flex align-items-center"
-          >
-            <svg
-              className="bi me-2"
-              width={16}
-              height={16}
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4.5L11.5 0H2zm0 1h9v3.5A1.5 1.5 0 0 0 12.5 6H15v8a1 1 0 0 1-1 1h-1v-3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm10 0.5L14.5 4H12a0.5 0.5 0 0 1-0.5-0.5v-2zM4 15v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3H4z" />
-            </svg>
+          <button type="submit" className="btn btn-primary action-button">
+            <i className="bi bi-save me-2" aria-hidden="true" />
             Save request
           </button>
         </div>

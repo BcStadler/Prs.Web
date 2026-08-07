@@ -132,7 +132,7 @@ function RequestDetailPage() {
   }, [id]);
 
   return (
-    <section className="content container-fluid mx-5 my-2 py-4">
+    <section className="content p-4 flex-grow-1">
       <Modal show={isRejectOpen} onHide={closeReject}>
         <Modal.Header closeButton>
           <Modal.Title>Reject Request</Modal.Title>
@@ -163,7 +163,8 @@ function RequestDetailPage() {
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary action-button">
+                <i className="bi bi-save me-2" aria-hidden="true" />
                 Save
               </button>
             </div>
@@ -223,7 +224,7 @@ function RequestDetailPage() {
           {request?.id && (
             <Link
               to={`/requests/edit/${request.id}`}
-              className="btn btn-outline-primary"
+              className="btn btn-outline-primary icon-button-square"
               aria-label="Edit request"
             >
               <svg
@@ -284,7 +285,7 @@ function RequestDetailPage() {
                       <div className="d-flex gap-2 justify-content-end">
                         <Link
                           to={`/requests/detail/${request.id}/requestline/edit/${requestLine.id}`}
-                          className="btn btn-outline-primary btn-sm"
+                          className="btn btn-outline-primary btn-sm icon-button-square"
                           aria-label="Edit request line"
                         >
                           <svg
@@ -326,8 +327,9 @@ function RequestDetailPage() {
                   <td>
                     <Link
                       to={`/requests/detail/${request.id}/requestline/create`}
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary action-button"
                     >
+                      <i className="bi bi-plus-lg me-2" aria-hidden="true" />
                       Add a line
                     </Link>
                   </td>

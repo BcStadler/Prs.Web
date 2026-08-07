@@ -133,24 +133,24 @@ main {
 .nav-pills {
   /* Active state (selected pill) */
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #007AFF;
+  --bs-nav-pills-link-active-bg: #007aff;
 
   /* Inactive state (unselected pills) */
-  --bs-nav-link-color: #007AFF;
+  --bs-nav-link-color: #007aff;
   --bs-nav-link-hover-color: #0b5ed7;
 }
 
 .nav-pills .nav-link {
-  color: #007AFF;
+  color: #007aff;
 }
 
 .nav-pills .nav-link:hover {
-  color: #007AFF;
+  color: #007aff;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: #007AFF !important;
+  background-color: #007aff !important;
   color: #fff !important;
 }
 
@@ -176,6 +176,35 @@ main {
 
   /* Focus / Keyboard navigation state */
   --bs-btn-focus-shadow-rgb: 13, 110, 253;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button .bi {
+  flex-shrink: 0;
+}
+
+.icon-button-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+}
+
+.icon-button-square.btn-sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-button-square .bi,
+.icon-button-square svg {
+  flex-shrink: 0;
 }
 
 /* If using Bootstrap's contextual background class on a badge */

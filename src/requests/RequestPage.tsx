@@ -11,12 +11,6 @@ function RequestsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedStatus = searchParams.get("status") ?? "";
 
-  const addButtonStyle = {
-    backgroundColor: "#0d6efd",
-    borderColor: "#0d6efd",
-    color: "#fff",
-  } as const;
-
   function removeRequest(request: IRequest) {
     setRequests((previousRequests) =>
       previousRequests.filter((o) => o.id !== request.id),
@@ -64,20 +58,11 @@ function RequestsPage() {
   }, [selectedStatus]);
 
   return (
-    <section className="content container-fluid mx-5 my-2 py-4">
+    <section className="content p-4 flex-grow-1">
       <div className="d-flex justify-content-between align-items-center pb-4 mb-4 border-bottom border-2">
         <h2 className="mb-0">Requests</h2>
-        <Link
-          to="/requests/create"
-          className="btn d-inline-flex align-items-center gap-2"
-          style={addButtonStyle}
-        >
-          <span
-            style={{ fontSize: "1.50rem", lineHeight: 1, fontWeight: 700 }}
-            aria-hidden="true"
-          >
-            +
-          </span>
+        <Link to="/requests/create" className="btn btn-primary action-button">
+          <i className="bi bi-plus-lg me-2" aria-hidden="true" />
           <span>Create a request</span>
         </Link>
       </div>
