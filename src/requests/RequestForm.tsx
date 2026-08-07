@@ -115,9 +115,9 @@ function RequestForm() {
   };
 
   return (
-    <form className="w-75" onSubmit={handleSubmit(save)}>
-      <div className="row g-4">
-        <div className="col-12 col-lg-5">
+    <form className="request-form w-75" onSubmit={handleSubmit(save)}>
+      <div className="request-form-grid">
+        <div className="request-form-field">
           <label htmlFor="description" className="form-label mb-1">
             Description
           </label>
@@ -133,7 +133,7 @@ function RequestForm() {
           <div className="invalid-feedback">{errors?.description?.message}</div>
         </div>
 
-        <div className="col-12 col-lg-5">
+        <div className="request-form-field">
           <label htmlFor="deliveryMode" className="form-label mb-1">
             Delivery Method
           </label>
@@ -154,7 +154,7 @@ function RequestForm() {
           </div>
         </div>
 
-        <div className="col-12 col-lg-5">
+        <div className="request-form-field">
           <label htmlFor="justification" className="form-label mb-1">
             Justification
           </label>
@@ -172,7 +172,7 @@ function RequestForm() {
           </div>
         </div>
 
-        <div className="col-12 col-lg-5">
+        <div className="request-form-field">
           <label htmlFor="status" className="form-label mb-1">
             Status
           </label>
@@ -191,7 +191,7 @@ function RequestForm() {
           <div className="invalid-feedback">{errors?.status?.message}</div>
         </div>
 
-        <div className="col-12 col-lg-5 offset-lg-5">
+        <div className="request-form-field request-form-field-align-end">
           <label htmlFor="userId" className="form-label mb-1">
             Requested By
           </label>
@@ -213,7 +213,7 @@ function RequestForm() {
           <div className="invalid-feedback">{errors?.userId?.message}</div>
         </div>
 
-        <div className="col-12 col-lg-5 offset-lg-5 d-flex justify-content-end pt-4 mt-2">
+        <div className="request-form-actions">
           <Link to="/requests" className="btn btn-outline-primary me-2">
             Cancel
           </Link>

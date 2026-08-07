@@ -133,24 +133,24 @@ main {
 .nav-pills {
   /* Active state (selected pill) */
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #007AFF;
+  --bs-nav-pills-link-active-bg: #007aff;
 
   /* Inactive state (unselected pills) */
-  --bs-nav-link-color: #007AFF;
+  --bs-nav-link-color: #007aff;
   --bs-nav-link-hover-color: #0b5ed7;
 }
 
 .nav-pills .nav-link {
-  color: #007AFF;
+  color: #007aff;
 }
 
 .nav-pills .nav-link:hover {
-  color: #007AFF;
+  color: #007aff;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: #007AFF !important;
+  background-color: #007aff !important;
   color: #fff !important;
 }
 
@@ -229,6 +229,48 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.request-form {
+  width: min(100%, 56rem);
+}
+
+.request-form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.request-form-field {
+  flex: 1 1 20rem;
+  max-width: 30rem;
+}
+
+.request-form-field-align-end {
+  margin-left: auto;
+}
+
+.request-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 991.98px) {
+  .request-form {
+    width: 100% !important;
+  }
+
+  .request-form-field {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .request-form-field-align-end {
+    margin-left: 0;
+  }
 }
 
 .card > .progress {

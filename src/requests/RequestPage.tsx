@@ -1,15 +1,23 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useSearchParams } from "react-router-dom";
 import { IRequest } from "./IRequest";
 import { requestsAPI } from "./RequestAPI";
 import RequestRow from "./RequestRow";
 import toast from "react-hot-toast";
 
+interface IRequestFilters {
+  status: string;
+}
+
 function RequestsPage() {
   const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState<IRequest[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedStatus = searchParams.get("status") ?? "";
+  const { register } = useForm<IRequestFilters>({
+    defaultValues: { status: selectedStatus },
+  });
 
   const addButtonStyle = {
     backgroundColor: "#0d6efd",
@@ -21,16 +29,6 @@ function RequestsPage() {
     setRequests((previousRequests) =>
       previousRequests.filter((o) => o.id !== request.id),
     );
-  }
-
-  function handleStatusChange(event: ChangeEvent<HTMLSelectElement>) {
-    const status = event.target.value;
-    if (status) {
-      setSearchParams({ status });
-      return;
-    }
-
-    setSearchParams({});
   }
 
   useEffect(() => {
@@ -86,10 +84,21 @@ function RequestsPage() {
           Status
         </label>
         <select
+          key={selectedStatus}
           id="status"
           className="form-select w-auto mb-3"
-          value={selectedStatus}
-          onChange={handleStatusChange}
+          {...register("status", {
+            onChange: (event) => {
+              const status = event.target.value;
+
+              if (status) {
+                setSearchParams({ status });
+                return;
+              }
+
+              setSearchParams({});
+            },
+          })}
         >
           <option value="">All</option>
           <option value="NEW">New</option>
