@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { IUser } from "./IUser";
 import { userAPI } from "./UserAPI";
@@ -19,6 +20,7 @@ const emptyUser: IUser = {
 function UserForm() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
     register,
@@ -131,17 +133,30 @@ function UserForm() {
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          <input
-            id="password"
-            type="password"
-            {...register("password", {
-              required: "Password is required",
-              maxLength: { value: 60, message: "Password is too long" },
-            })}
-            placeholder="Enter password"
-            className={`form-control ${errors?.password && "is-invalid"}`}
-          />
-          <div className="invalid-feedback">{errors?.password?.message}</div>
+          <div className="input-group has-validation">
+            <input
+              id="password"
+              type={isPasswordVisible ? "text" : "password"}
+              {...register("password", {
+                required: "Password is required",
+                maxLength: { value: 60, message: "Password is too long" },
+              })}
+              placeholder="Enter password"
+              className={`form-control ${errors?.password && "is-invalid"}`}
+            />
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={() => setIsPasswordVisible((visible) => !visible)}
+              aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+            >
+              <i
+                className={`bi ${isPasswordVisible ? "bi-eye-slash" : "bi-eye"}`}
+                aria-hidden="true"
+              />
+            </button>
+            <div className="invalid-feedback">{errors?.password?.message}</div>
+          </div>
         </div>
       </div>
       <div className="mb-3">

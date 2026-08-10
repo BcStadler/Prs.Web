@@ -18,7 +18,7 @@ function Header() {
         className="navbar bg-body-tertiary border-bottom"
         style={{ paddingTop: "0.9rem", paddingBottom: "0.9rem" }}
       >
-        <div className="container-fluid">
+        <div className="d-flex align-items-center justify-content-between w-100 px-3 px-md-4">
           <Link
             to="/"
             className="d-flex align-items-center link-body-emphasis text-decoration-none"
@@ -49,9 +49,9 @@ function Header() {
           {user ? (
             <Dropdown className="me-4" align="end">
               <Dropdown.Toggle
-                as="a"
-                variant="light"
-                className="d-flex text-secondary align-items-center text-decoration-none"
+                as="button"
+                variant="link"
+                className="d-flex text-secondary align-items-center text-decoration-none border-0 bg-transparent shadow-none p-0"
               >
                 <div
                   style={{ width: "3rem", height: "3rem" }}

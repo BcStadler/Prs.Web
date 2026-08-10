@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { userAPI } from "../users/UserAPI";
@@ -18,6 +18,7 @@ function persistUsers(user: IUser) {
 function SignInPage() {
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const {
     register,
     handleSubmit,
@@ -88,13 +89,30 @@ function SignInPage() {
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              {...register("password", { required: "Password is required" })}
-              className={`form-control ${errors?.password && "is-invalid"}`}
-            />
-            <div className="invalid-feedback">{errors?.password?.message}</div>
+            <div className="input-group has-validation">
+              <input
+                id="password"
+                type={isPasswordVisible ? "text" : "password"}
+                {...register("password", { required: "Password is required" })}
+                className={`form-control ${errors?.password && "is-invalid"}`}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={() => setIsPasswordVisible((visible) => !visible)}
+                aria-label={
+                  isPasswordVisible ? "Hide password" : "Show password"
+                }
+              >
+                <i
+                  className={`bi ${isPasswordVisible ? "bi-eye-slash" : "bi-eye"}`}
+                  aria-hidden="true"
+                />
+              </button>
+              <div className="invalid-feedback">
+                {errors?.password?.message}
+              </div>
+            </div>
           </div>
           <div className="mb-4 form-text">
             <a href="#">Forgot It?</a>
