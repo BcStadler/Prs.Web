@@ -9,10 +9,7 @@ import { requestsAPI } from "./RequestAPI";
 import RequestHeader from "./RequestHeader";
 import { IRequestLine } from "../requestLines/IRequestLine";
 import { requestLineAPI } from "../requestLines/RequestLineAPI";
-import {
-  formatCurrency,
-  normalizeRequestStatus,
-} from "../utility/formatUtilities";
+import { formatCurrency, normalizeRequestStatus, } from "../utility/formatUtilities";
 import { useUserContext } from "../App";
 
 interface IRejectForm {
