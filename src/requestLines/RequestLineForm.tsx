@@ -140,7 +140,7 @@ function RequestLineForm() {
       <div className="d-flex justify-content-end mt-5">
         <Link
           to={`/requests/detail/${requestId}`}
-          className="btn btn-outline-primary me-2"
+          className="btn btn-outline-danger me-2"
         >
           Cancel
         </Link>

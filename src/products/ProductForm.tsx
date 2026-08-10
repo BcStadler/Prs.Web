@@ -173,7 +173,7 @@ function ProductForm({ showPlaceholders = false }: ProductFormProps) {
       </div>
       <div className="d-flex flex-row justify-content-end w-100 gap-4 mt-4">
         <div className="d-flex justify-content-end">
-          <Link to="/products" className="btn btn-outline-primary me-2">
+          <Link to="/products" className="btn btn-outline-danger me-2">
             Cancel
           </Link>
           <button type="submit" className="btn btn-primary action-button">

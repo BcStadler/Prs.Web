@@ -205,7 +205,7 @@ function RequestForm() {
           <div className="invalid-feedback">{errors?.userId?.message}</div>
 
           <div className="d-flex justify-content-end gap-2 pt-4 mt-2">
-            <Link to="/requests" className="btn btn-outline-primary">
+            <Link to="/requests" className="btn btn-outline-danger">
               Cancel
             </Link>
             <button type="submit" className="btn btn-primary action-button">

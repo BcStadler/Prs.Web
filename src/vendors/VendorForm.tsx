@@ -270,7 +270,7 @@ function VendorForm({ showPlaceholders = false }: VendorFormProps) {
       </div>
 
       <div className="d-flex gap-2 justify-content-end mt-3">
-        <Link to="/vendors" className="btn btn-outline-primary">
+        <Link to="/vendors" className="btn btn-outline-danger">
           Cancel
         </Link>
         <button type="submit" className="btn btn-primary action-button">

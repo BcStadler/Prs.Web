@@ -186,7 +186,7 @@ function UserForm() {
         </div>
       </div>
       <div className="d-flex justify-content-end w-100 mt-4">
-        <Link to="/users" className="btn btn-outline-primary me-2">
+        <Link to="/users" className="btn btn-outline-danger me-2">
           Cancel
         </Link>
         <button type="submit" className="btn btn-primary action-button">

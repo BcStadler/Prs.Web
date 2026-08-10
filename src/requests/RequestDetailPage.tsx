@@ -155,7 +155,7 @@ function RequestDetailPage() {
             <div className="d-flex justify-content-end gap-2">
               <button
                 type="button"
-                className="btn btn-outline-primary"
+                className="btn btn-outline-danger"
                 onClick={closeReject}
               >
                 Cancel
@@ -177,7 +177,7 @@ function RequestDetailPage() {
           <div className="d-flex justify-content-end gap-2">
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="btn btn-outline-danger"
               onClick={handleCloseDeleteLineModal}
             >
               Cancel
