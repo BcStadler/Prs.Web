@@ -129,11 +129,11 @@ function UserForm() {
           />
           <div className="invalid-feedback">{errors?.username?.message}</div>
         </div>
-        <div className="flex-fill">
+        <div className="ms-auto" style={{ width: "580px", maxWidth: "100%" }}>
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          <div className="input-group has-validation">
+          <div className="position-relative has-validation">
             <input
               id="password"
               type={isPasswordVisible ? "text" : "password"}
@@ -142,13 +142,14 @@ function UserForm() {
                 maxLength: { value: 60, message: "Password is too long" },
               })}
               placeholder="Enter password"
-              className={`form-control ${errors?.password && "is-invalid"}`}
+              className={`form-control pe-5 ${errors?.password && "is-invalid"}`}
             />
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary btn-sm icon-button-square position-absolute top-50 end-0 translate-middle-y me-1 border-0 shadow-none"
               onClick={() => setIsPasswordVisible((visible) => !visible)}
               aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+              style={{ outline: "none", boxShadow: "none" }}
             >
               <i
                 className={`bi ${isPasswordVisible ? "bi-eye-slash" : "bi-eye"}`}
