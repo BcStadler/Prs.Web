@@ -41,8 +41,8 @@ export const requestsAPI = {
   reject(id: number, rejectionReason: string) {
     return fetch(`${url}/${id}/reject`, {
       method: "PUT",
-      body: rejectionReason,
-      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(rejectionReason),
+      headers: { "Content-Type": "application/json" },
     }).then(checkStatus);
   },
 };
