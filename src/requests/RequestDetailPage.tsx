@@ -57,9 +57,10 @@ function RequestDetailPage() {
   });
 
   const loadRequest = async () => {
+    if (!id) return;
     setLoading(true);
     try {
-      const fetchedRequest = await requestsAPI.find(Number(id));
+      const fetchedRequest = await requestsAPI.find(parseInt(id, 10));
       setRequest(fetchedRequest);
     } catch (error) {
       toast.error(getErrorMessage(error));
