@@ -41,7 +41,7 @@ function UserCard({ user, onRemove }: IUserCardProps) {
             href="#"
             onClick={async (event) => {
               event.preventDefault();
-              if (confirm("Delete this user member?") && user.id) {
+              if (confirm("Delete this user?") && user.id) {
                 try {
                   await userAPI.delete(user.id);
                   onRemove(user);
