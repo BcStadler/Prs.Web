@@ -9,7 +9,10 @@ import { requestsAPI } from "./RequestAPI";
 import RequestHeader from "./RequestHeader";
 import { IRequestLine } from "../requestLines/IRequestLine";
 import { requestLineAPI } from "../requestLines/RequestLineAPI";
-import { formatCurrency } from "../utility/formatUtilities";
+import {
+  formatCurrency,
+  normalizeRequestStatus,
+} from "../utility/formatUtilities";
 import { useUserContext } from "../App";
 
 interface IRejectForm {
@@ -32,9 +35,7 @@ function RequestDetailPage() {
   const [requestLineToDelete, setRequestLineToDelete] = useState<
     IRequestLine | undefined
   >(undefined);
-  const normalizedStatus = !request?.status
-    ? ""
-    : request.status.trim().toUpperCase();
+  const normalizedStatus = normalizeRequestStatus(request?.status);
   const isOwnRequest = request?.userId === user?.id;
   const requestLines = request?.requestLines ?? [];
   const runningTotal = requestLines.reduce(

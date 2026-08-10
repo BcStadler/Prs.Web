@@ -7,6 +7,10 @@ import { userAPI } from "../users/UserAPI";
 import { IUser } from "../users/IUser";
 import { IRequest } from "./IRequest";
 import { requestsAPI } from "./RequestAPI";
+import {
+  formatRequestStatus,
+  normalizeRequestStatus,
+} from "../utility/formatUtilities";
 
 const emptyRequest: IRequest = {
   id: undefined,
@@ -32,22 +36,6 @@ function normalizeDeliveryMode(deliveryMode?: string) {
       return normalized;
     default:
       return deliveryMode;
-  }
-}
-
-function normalizeStatus(status?: string) {
-  if (!status) return "";
-
-  const normalized = status.trim().toUpperCase().replace(/\s+/g, "_");
-
-  switch (normalized) {
-    case "NEW":
-    case "REVIEW":
-    case "APPROVED":
-    case "REJECTED":
-      return normalized;
-    default:
-      return status;
   }
 }
 
@@ -79,7 +67,7 @@ function RequestForm() {
       return {
         ...request,
         deliveryMode: normalizeDeliveryMode(request.deliveryMode),
-        status: normalizeStatus(request.status),
+        status: normalizeRequestStatus(request.status),
       };
     },
   });
@@ -91,7 +79,7 @@ function RequestForm() {
         request.status = "NEW";
       }
 
-      request.status = normalizeStatus(request.status) || "NEW";
+      request.status = normalizeRequestStatus(request.status) || "NEW";
       request.deliveryMode = normalizeDeliveryMode(request.deliveryMode);
       delete request.user;
 
@@ -182,10 +170,13 @@ function RequestForm() {
             disabled={!isEdit}
             className={`form-select ${errors?.status && "is-invalid"}`}
           >
-            <option value="NEW">New</option>
-            <option value="REVIEW">Review</option>
-            <option value="APPROVED">Approved</option>
-            <option value="REJECTED">Rejected</option>
+            {(["NEW", "REVIEW", "APPROVED", "REJECTED"] as const).map(
+              (status) => (
+                <option key={status} value={status}>
+                  {formatRequestStatus(status)}
+                </option>
+              ),
+            )}
           </select>
           <div className="invalid-feedback">{errors?.status?.message}</div>
         </div>

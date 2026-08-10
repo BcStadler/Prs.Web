@@ -1,5 +1,8 @@
 import { IRequest } from "./IRequest";
-import { getTextBackgroundByStatus } from "../utility/formatUtilities";
+import {
+  formatRequestStatus,
+  getTextBackgroundByStatus,
+} from "../utility/formatUtilities";
 
 interface IRequestHeaderProps {
   request: IRequest;
@@ -36,12 +39,7 @@ function RequestHeader({ request }: IRequestHeaderProps) {
           <span
             className={`badge ${getTextBackgroundByStatus(request.status)}`}
           >
-            {request.status
-              ? `${request.status.trim().charAt(0).toUpperCase()}${request.status
-                  .trim()
-                  .slice(1)
-                  .toLowerCase()}`
-              : ""}
+            {formatRequestStatus(request.status)}
           </span>
         </dd>
       </dl>

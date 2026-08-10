@@ -4,6 +4,7 @@ import { IRequest } from "./IRequest";
 import { requestsAPI } from "./RequestAPI";
 import {
   formatCurrency,
+  formatRequestStatus,
   getTextBackgroundByStatus,
 } from "../utility/formatUtilities";
 import toast from "react-hot-toast";
@@ -37,12 +38,7 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
       </td>
       <td>
         <span className={`badge ${getTextBackgroundByStatus(request.status)}`}>
-          {request.status
-            ? `${request.status.trim().charAt(0).toUpperCase()}${request.status
-                .trim()
-                .slice(1)
-                .toLowerCase()}`
-            : ""}
+          {formatRequestStatus(request.status)}
         </span>
       </td>
       <td>{formatCurrency(request.total)}</td>
