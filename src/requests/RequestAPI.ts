@@ -3,7 +3,7 @@ import { BASE_URL, checkStatus, parseJSON } from "../utility/fetchUtilities";
 
 const url = `${BASE_URL}/requests`;
 
-export const requestsAPI = {
+export const requestAPI = {
   list(status?: string): Promise<IRequest[]> {
     const query = status ? `?status=${encodeURIComponent(status)}` : "";
     return fetch(`${url}${query}`).then(checkStatus).then(parseJSON);

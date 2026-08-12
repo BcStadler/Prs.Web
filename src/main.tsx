@@ -11,7 +11,7 @@ import SignInPage from "./account/SignInPage";
 import ProductCreatePage from "./products/ProductCreatePage";
 import ProductEditPage from "./products/ProductEditPage";
 import ProductsPage from "./products/ProductsPage";
-import RequestsPage from "./requests/RequestPage";
+import RequestsPage from "./requests/RequestsPage";
 import RequestDetailPage from "./requests/RequestDetailPage";
 import RequestCreatePage from "./requests/RequestCreatePage";
 import RequestEditPage from "./requests/RequestEditPage";
@@ -23,7 +23,7 @@ import VendorCreatePage from "./vendors/VendorCreatePage";
 import VendorEditPage from "./vendors/VendorEditPage";
 import UserCreatePage from "./users/UserCreatePage";
 import UserEditPage from "./users/UserEditPage";
-import UserPage from "./users/UserPage";
+import UsersPage from "./users/UsersPage";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
           { path: "vendors/create", element: <VendorCreatePage /> },
           { path: "vendors/edit/:id", element: <VendorEditPage /> },
           { path: "vendors/detail/:id", element: <VendorDetailPage /> },
-          { path: "users", element: <UserPage /> },
+          { path: "users", element: <UsersPage /> },
           { path: "users/create", element: <UserCreatePage /> },
           { path: "users/edit/:id", element: <UserEditPage /> },
         ],

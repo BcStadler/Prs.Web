@@ -1,7 +1,7 @@
 import { useEffect, useState, ChangeEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { IRequest } from "./IRequest";
-import { requestsAPI } from "./RequestAPI";
+import { requestAPI } from "./RequestAPI";
 import RequestRow from "./RequestRow";
 import toast from "react-hot-toast";
 import { formatRequestStatus } from "../utility/formatUtilities";
@@ -34,7 +34,7 @@ function RequestsPage() {
     const loadRequests = async (status?: string) => {
       setLoading(true);
       try {
-        const data = await requestsAPI.list(status);
+        const data = await requestAPI.list(status);
         if (active) {
           setRequests(data);
         }

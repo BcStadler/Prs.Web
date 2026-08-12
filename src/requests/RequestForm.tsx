@@ -6,7 +6,7 @@ import { useUserContext } from "../App";
 import { userAPI } from "../users/UserAPI";
 import { IUser } from "../users/IUser";
 import { IRequest } from "./IRequest";
-import { requestsAPI } from "./RequestAPI";
+import { requestAPI } from "./RequestAPI";
 import {
   formatRequestStatus,
   normalizeRequestStatus,
@@ -63,7 +63,7 @@ function RequestForm() {
         return emptyRequest;
       }
 
-      const request = await requestsAPI.find(Number(id));
+      const request = await requestAPI.find(Number(id));
       return {
         ...request,
         deliveryMode: normalizeDeliveryMode(request.deliveryMode),
@@ -84,11 +84,11 @@ function RequestForm() {
       delete request.user;
 
       if (!request.id) {
-        const newRequest = await requestsAPI.post(request);
+        const newRequest = await requestAPI.post(request);
         toast.success("Successfully saved.");
         navigate(`/requests/detail/${newRequest.id}`);
       } else {
-        await requestsAPI.put(request);
+        await requestAPI.put(request);
         toast.success("Successfully saved.");
         navigate(`/requests/detail/${request.id}`);
       }

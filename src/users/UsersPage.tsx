@@ -6,7 +6,7 @@ import UserCardSkeleton from "./UserCardSkeleton.tsx";
 import { userAPI } from "./UserAPI";
 import toast from "react-hot-toast";
 
-function UserPage() {
+function UsersPage() {
   const [user, setUser] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(false);
   const userCardSkeletons = Array.from(Array(12), (_value, index) => (
@@ -73,4 +73,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default UsersPage;

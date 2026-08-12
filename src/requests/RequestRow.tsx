@@ -1,7 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
 import { IRequest } from "./IRequest";
-import { requestsAPI } from "./RequestAPI";
+import { requestAPI } from "./RequestAPI";
 import {
   formatCurrency,
   formatRequestStatus,
@@ -9,7 +9,7 @@ import {
 } from "../utility/formatUtilities";
 import toast from "react-hot-toast";
 
-interface RequestRowProps {
+interface IRequestRowProps {
   request: IRequest;
   onRemove: (request: IRequest) => void;
 }
@@ -28,7 +28,7 @@ function formatDeliveryMode(deliveryMode: string) {
   }
 }
 
-function RequestRow({ request, onRemove }: RequestRowProps) {
+function RequestRow({ request, onRemove }: IRequestRowProps) {
   return (
     <tr>
       <th scope="row">{request.id}</th>
@@ -77,7 +77,7 @@ function RequestRow({ request, onRemove }: RequestRowProps) {
                 if (confirm("Are you sure you want to delete this request?")) {
                   if (request.id) {
                     try {
-                      await requestsAPI.delete(request.id);
+                      await requestAPI.delete(request.id);
                       onRemove(request);
                       toast.success("Successfully deleted.");
                     } catch (error) {

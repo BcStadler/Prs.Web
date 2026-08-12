@@ -69,11 +69,11 @@ const emptyVendor: IVendor = {
   email: "",
 };
 
-type VendorFormProps = {
+interface IVendorFormProps {
   showPlaceholders?: boolean;
-};
+}
 
-function VendorForm({ showPlaceholders = false }: VendorFormProps) {
+function VendorForm({ showPlaceholders = false }: IVendorFormProps) {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 

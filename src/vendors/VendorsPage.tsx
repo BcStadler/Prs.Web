@@ -6,7 +6,7 @@ import VendorCardSkeleton from "./VendorCardSkeleton";
 import { vendorAPI } from "./VendorAPI";
 import toast from "react-hot-toast";
 
-function VendorPage() {
+function VendorsPage() {
   const [vendor, setVendor] = useState<IVendor[]>([]);
   const [loading, setLoading] = useState(false);
   const vendorCardSkeletons = Array.from({ length: 12 }, (_value, index) => (
@@ -68,4 +68,4 @@ function VendorPage() {
   );
 }
 
-export default VendorPage;
+export default VendorsPage;

@@ -18,11 +18,11 @@ const emptyProduct: IProduct = {
   vendor: {} as IVendor,
 };
 
-type ProductFormProps = {
+interface IProductFormProps {
   showPlaceholders?: boolean;
-};
+}
 
-function ProductForm({ showPlaceholders = false }: ProductFormProps) {
+function ProductForm({ showPlaceholders = false }: IProductFormProps) {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [vendors, setVendors] = useState<IVendor[]>([]);

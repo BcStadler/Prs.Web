@@ -5,14 +5,14 @@ import { createContext, useContext, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { IUser } from "./users/IUser";
 
-export interface UserContextType {
+export interface IUserContextType {
   user: IUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<IUserContextType | undefined>(undefined);
 
-export function useUserContext(): UserContextType {
+export function useUserContext(): IUserContextType {
   const userContext = useContext(UserContext);
   if (userContext === undefined) throw new Error("context not found");
   return userContext;

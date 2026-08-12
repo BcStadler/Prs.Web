@@ -5,11 +5,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IRequest } from "./IRequest";
-import { requestsAPI } from "./RequestAPI";
+import { requestAPI } from "./RequestAPI";
 import RequestHeader from "./RequestHeader";
 import { IRequestLine } from "../requestLines/IRequestLine";
 import { requestLineAPI } from "../requestLines/RequestLineAPI";
-import { formatCurrency, normalizeRequestStatus, } from "../utility/formatUtilities";
+import {
+  formatCurrency,
+  normalizeRequestStatus,
+} from "../utility/formatUtilities";
 import { useUserContext } from "../App";
 
 interface IRejectForm {
@@ -57,7 +60,7 @@ function RequestDetailPage() {
     if (!id) return;
     setLoading(true);
     try {
-      const fetchedRequest = await requestsAPI.find(parseInt(id, 10));
+      const fetchedRequest = await requestAPI.find(parseInt(id, 10));
       setRequest(fetchedRequest);
     } catch (error) {
       toast.error(getErrorMessage(error));
@@ -71,7 +74,7 @@ function RequestDetailPage() {
 
     setLoading(true);
     try {
-      await requestsAPI.review(request.id);
+      await requestAPI.review(request.id);
       toast.success("Successfully saved.");
       navigate("/requests");
     } catch (error) {
@@ -86,7 +89,7 @@ function RequestDetailPage() {
 
     setLoading(true);
     try {
-      await requestsAPI.approve(request.id);
+      await requestAPI.approve(request.id);
       toast.success("Successfully saved.");
       navigate("/requests");
     } catch (error) {
@@ -100,7 +103,7 @@ function RequestDetailPage() {
     if (!request?.id || !form.rejectionReason) return;
 
     try {
-      await requestsAPI.reject(request.id, form.rejectionReason);
+      await requestAPI.reject(request.id, form.rejectionReason);
       setIsRejectOpen(false);
       toast.success("Successfully saved.");
       navigate("/requests");
